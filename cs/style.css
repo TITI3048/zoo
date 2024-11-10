@@ -37,6 +37,11 @@ body, html {
     color: var(--primary-color) !important;
 }
 
+.container_text1 {
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
 .hero-section {
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/zoo-background.jpg');
     background-size: cover;
