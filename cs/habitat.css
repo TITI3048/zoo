@@ -19,7 +19,7 @@ body, html {
 
 /* Header */
 header {
-    background-color: var(--secondary-color);
+    background-color: var(--dark-color);
     padding: 10px 0;
     text-align: center;
 }
