@@ -112,8 +112,10 @@ body, html {
 }
 
 #habitats {
+    text-align: center;
     background-color: var(--light-color);
     padding: 5rem 0;
+    
 }
 #habitats h2 {
     color: var(--secondary-color);
@@ -129,6 +131,8 @@ body, html {
 }
 #habitats .col-md-4 p {
     color: var(--secondary-color);
+    margin-left: 150px;
+    margin-right: 150px;
 }
 
 footer {

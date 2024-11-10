@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="lien">
                 <a href="inscription.php">Créer un compte</a>
                 <br>
-                <a href="accueil.html">Retour à l'accueil</a>
+                <a href="index.html">Retour à l'accueil</a>
             </div>
         </form>
     </div>

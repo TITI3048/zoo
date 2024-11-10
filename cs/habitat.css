@@ -62,6 +62,7 @@ header {
     font-size: 1.1em;
     margin-bottom: 30px;
     line-height: 1.6;
+    color: var(--secondary-color);
 }
 
 /* Bouton */

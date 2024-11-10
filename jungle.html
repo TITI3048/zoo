@@ -16,7 +16,8 @@
     <header class="bg-dark text-white text-center py-4">
         <img src="/image/LOGO RINO 3.png" class="logo mb-3" alt="Logo Rino" title="Logo Rino">
         <nav class="navbar navbar-expand-lg navbar-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
@@ -33,9 +34,12 @@
 
     <!-- Introduction de la Jungle -->
     <section class="text-center py-5 bg-light">
-        <img src="/image/image-jungle/jungle2-min.jpeg" class="img-fluid jungle-img" alt="jungle">
+        <img src="https://img.freepik.com/photos-gratuite/dense-canopee-jungle-flore-vibrante-variee-cachant-creatures-mysterieuses-dans-ses-ombres_1268-34989.jpg?t=st=1731273241~exp=1731276841~hmac=a54ab9acf6d3947c84f20039474d22755b8c99a61bc5594a174783c8cf0a8c2c&w=1060"
+            class="img-fluid jungle-img" alt="jungle">
         <h2 class="mt-4">La Jungle</h2>
-        <p class="text-muted">La jungle, ou forêt tropicale, est un écosystème riche en biodiversité situé près de l'Équateur. Elle abrite de nombreuses espèces animales adaptées à son climat chaud et humide. Voici quelques-uns des animaux emblématiques de la jungle.</p>
+        <p class="text-muted">La jungle, ou forêt tropicale, est un écosystème riche en biodiversité situé près de
+            l'Équateur.<br> Elle abrite de nombreuses espèces animales adaptées à son climat chaud et humide. <br>Voici
+            quelques-uns des animaux emblématiques de la jungle.</p>
     </section>
 
     <!-- Cartes d'animaux en grille 2x2 -->
@@ -43,51 +47,65 @@
         <div class="row">
             <!-- Carte Koko le Gorille -->
             <div class="col-md-6 mb-4">
-                <div class="card">
+                <div class="card" data-id="1">
                     <img src="/image/gorille.jpg" class="card-img-top" alt="Koko le Gorille">
                     <div class="card-body">
                         <h4 class="card-title">Koko le Gorille</h4>
-                        <p class="card-text">Taille: 1.63 mètre<br>Poids: 190 kg<br>Alimentation: Feuilles, tiges, pousses de plantes, bananes.</p>
-                        <div class="like"></div>
+                        <p class="card-text">Taille: 1.63 mètre<br>Poids: 190 kg<br>Alimentation: Feuilles, tiges,
+                            pousses de plantes, bananes.</p>
+                        <div class="icons">
+                            <div class="like"></div>
+                            <span class="like-count" data-id="1">0</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Carte Sher Khan le Tigre -->
             <div class="col-md-6 mb-4">
-                <div class="card">
+                <div class="card" data-id="2">
                     <img src="/image/tigre2.avif" class="card-img-top" alt="Sher Khan le Tigre">
                     <div class="card-body">
                         <h4 class="card-title">Sher Khan le Tigre</h4>
                         <p class="card-text">Taille: 2.28 mètres<br>Poids: 258 kg<br>Alimentation: viande</p>
-                        <div class="like"></div>
+                        <div class="icons">
+                            <div class="like"></div>
+                            <span class="like-count" data-id="2">0</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Carte Pandi Le Panda -->
             <div class="col-md-6 mb-4">
-                <div class="card">
+                <div class="card" data-id="3">
                     <img src="/image/panda.jpg" class="card-img-top" alt="Pandi Le Panda">
                     <div class="card-body">
                         <h4 class="card-title">Pandi Le Panda</h4>
                         <p class="card-text">Taille: 1.59 mètre<br>Poids: 103 kg<br>Alimentation: bambous, fruits</p>
-                        <div class="like"></div>
+                        <div class="icons">
+                            <div class="like"></div>
+                            <span class="like-count" data-id="3">0</span>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Carte Alfred l'Alligator -->
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <img src="/image/aligator2.webp" class="card-img-top" alt="Alfred L'Alligator">
-                    <div class="card-body">
-                        <h4 class="card-title">Alfred L'Alligator</h4>
-                        <p class="card-text">Taille: 3.76 mètre<br>Poids: 180 kg<br>Alimentation: viande</p>
+        <!-- Carte Alfred l'Alligator -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <img src="/image/aligator2.webp" class="card-img-top" alt="Alfred L'Alligator">
+                <div class="card-body">
+                    <h4 class="card-title">Alfred L'Alligator</h4>
+                    <p class="card-text">Taille: 3.76 mètre<br>Poids: 180 kg<br>Alimentation: viande</p>
+                    <div class="icons">
                         <div class="like"></div>
+                        <span class="like-count" data-id="3">0</span>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </main>
 
