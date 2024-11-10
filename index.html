@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcadia Zoo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="cs/style.css">
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Arcadia Zoo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#animals">Animaux</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#habitats">Habitats</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Service</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section text-center text-light">
+        <div class="container">
+            <h1>Bienvenue à Arcadia Zoo</h1>
+            <p>Découvrez les merveilles de la faune et de la flore</p>
+            <a href="#animals" class="btn btn-primary">Explorez nos animaux</a>
+        </div>
+    </header>
+
+    <section id="animals" class="py-5">
+        <div class="container">
+            <h2 class="text-center">Nos Animaux</h2>
+            <p class="text-center">Rencontrez nos merveilleux résidents !</p>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="/image/lion.avif" class="card-img-top" alt="Lion">
+                        <div class="card-body">
+                            <h5 class="card-title">Lion</h5>
+                            <p class="card-text">Moufassa le roi de la jungle, majestueux et puissant.</p>
+                            <button class="btn btn-outline-primary like-btn">Like</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="/image/elephant.avif" class="card-img-top" alt="Elephant">
+                        <div class="card-body">
+                            <h5 class="card-title">Éléphant</h5>
+                            <p class="card-text">Babare le géant doux et sage de la savane.</p>
+                            <button class="btn btn-outline-primary like-btn">Like</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="/image/tigre.avif" class="card-img-top" alt="Tiger">
+                        <div class="card-body">
+                            <h5 class="card-title">Tigre</h5>
+                            <p class="card-text">Shirkan le prédateur rusé et gracieux de la jungle.</p>
+                            <button class="btn btn-outline-primary like-btn">Like</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="habitats" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center">Nos Habitats</h2>
+            <p class="text-center">Des environnements recréés pour chaque espèce.</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>Jungle</h3>
+                    <p>Entrez dans un monde sauvage et luxuriant, où la canopée dense et les sons mystérieux vous transportent au cœur de la jungle. Ici, chaque pas vous rapproche des espèces exotiques qui vivent dans ce biotope, comme les tigres majestueux, les singes espiègles et les oiseaux multicolores. Un habitat où la vie est vibrante et l'aventure vous attend à chaque coin d’ombre."</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Savane</h3>
+                    <p>Un espace ouvert pour les géants de la terre.La savane s'étend sous un ciel infini, baignée de lumière dorée et parsemée d'herbes hautes ondulant au gré du vent. Dans cet espace ouvert, les éléphants majestueux, les lions puissants et les antilopes agiles cohabitent dans un équilibre naturel. Ressentez la force et la sérénité de cet environnement unique, où chaque habitant incarne la vie sauvage de la savane africaine.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Marais</h3>
+                    <p>Un environnement humide pour nos espèces aquatiques. Plongez dans le monde mystérieux des marais, où l'eau et la terre se rencontrent dans un équilibre délicat. Ici, les crocodiles se glissent discrètement sous la surface, les oiseaux aquatiques plongent pour attraper leur proie, et une faune étonnante évolue dans cet habitat humide et fertile. Découvrez les secrets de ce lieu fascinant et ses créatures aussi énigmatiques qu'impressionnantes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-4 bg-dark text-light text-center">
+        <p>&copy; 2024 Arcadia Zoo. Tous droits réservés.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
