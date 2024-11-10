@@ -3,118 +3,233 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcadia Zoo - La Jungle</title>
+    <title>Arcadia Zoo - Jungle</title>
+
+    <!-- Lien vers Bootstrap et Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="cs/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="cs/jungle.css">
+
+    <style>
+        /* Définition des couleurs de thème */
+        :root {
+            --primary-color: #2a9d8f;
+            --secondary-color: #264653;
+            --accent-color: #e76f51;
+            --light-color: #f4a261;
+            --dark-color: #1d3557;
+        }
+
+        /* Styles généraux */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--light-color);
+            color: var(--secondary-color);
+            padding: 20px;
+        }
+
+        /* Styles du header */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Bouton de like */
+        .like-container {
+            display: inline-block;
+            margin: 20px;
+        }
+
+        .like-button {
+            font-size: 1.2em;
+            color: var(--secondary-color);
+            transition: color 0.3s ease;
+        }
+
+        .like-button .like-icon {
+            color: var(--accent-color);
+            margin-right: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .like-button:hover {
+            color: var(--primary-color);
+        }
+
+        .like-button:active .like-icon {
+            transform: scale(1.2);
+        }
+
+        /* Animation de pouls pour le like */
+        .liked-animation {
+            color: var(--accent-color) !important;
+            transform: scale(1.5);
+            transition: transform 0.2s ease, color 0.3s ease;
+        }
+
+        /* Style des cartes des animaux */
+        .card {
+            background-color: var(--light-color);
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            padding: 15px;
+        }
+
+        .card img {
+            border-radius: 8px;
+            width: 100%;
+            height: auto;
+        }
+
+        .card h4 {
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+    </style>
 </head>
+<header class="bg-dark text-white text-center py-4">
+    <img src="/image/LOGO RINO 3.png" class="logo mb-3" alt="Logo Rino" title="Logo Rino">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="connexion.php">Connexion</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
 <body>
-    <header class="bg-dark text-white text-center py-4">
-        <img src="/image/LOGO RINO 3.png" class="logo mb-3" alt="Logo Rino" title="Logo Rino">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="reserve-africaine.html">Savane</a></li>
-                    <li class="nav-item"><a class="nav-link" href="voliere.html">Marais</a></li>
-                    <li class="nav-item"><a class="nav-link" href="connexion.php">Connexion</a></li>
-                </ul>
-            </div>
-        </nav>
+    <!-- Header avec logo -->
+    <header>
+        <h1>Bienvenue dans la Jungle d'Arcadia Zoo</h1>
+        <p>Découvrez nos animaux exotiques et sauvages!</p>
     </header>
 
-    <section class="text-center py-5 bg-light">
-        <img src="https://img.freepik.com/photos-gratuite/dense-canopee-jungle-flore-vibrante-variee-cachant-creatures-mysterieuses-dans-ses-ombres_1268-34989.jpg?t=st=1731273241~exp=1731276841~hmac=a54ab9acf6d3947c84f20039474d22755b8c99a61bc5594a174783c8cf0a8c2c&w=1060"
-            class="img-fluid jungle-img" alt="jungle">
-        <h2 class="mt-4">La Jungle</h2>
-        <p class="text-muted">La jungle, ou forêt tropicale, est un écosystème riche en biodiversité situé près de
-            l'Équateur.<br> Elle abrite de nombreuses espèces animales adaptées à son climat chaud et humide. <br>Voici
-            quelques-uns des animaux emblématiques de la jungle.</p>
-    </section>
-
-    <main class="container">
+    <!-- Section des cartes d'animaux -->
+    <div class="container">
         <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="card" data-id="1">
-                    <img src="/image/gorille.jpg" class="card-img-top" alt="Koko le Gorille">
-                    <div class="card-body">
-                        <h4 class="card-title">Koko le Gorille</h4>
-                        <p class="card-text">Taille: 1.63 mètre<br>Poids: 190 kg<br>Alimentation: Feuilles, tiges,
-                            pousses de plantes, bananes.</p>
-                        <div class="icons">
-                            <div class="like"></div>
-                            <span class="like-count" data-id="1">0</span>
-                        </div>
+            <!-- Carte pour Koko le Gorille -->
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="/image/gorille.jpg" alt="Image d'animal">
+                    <h4>Koko le Gorille</h4>
+                    <p>Taille: 1.63 mètre</p>
+                    <p>Poids: 190 kg</p>
+                    <p>Alimentation: Feuilles, tiges, pousses de plantes, bananes</p>
+
+                    <!-- Bouton Like -->
+                    <div class="like-container text-center">
+                        <button class="btn btn-outline-primary like-button" data-id="1">
+                            <i class="fas fa-heart like-icon"></i>
+                            <span class="like-count" data-id="1">0</span> Likes
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 mb-4">
-                <div class="card" data-id="2">
-                    <img src="/image/tigre2.avif" class="card-img-top" alt="Sher Khan le Tigre">
-                    <div class="card-body">
-                        <h4 class="card-title">Sher Khan le Tigre</h4>
-                        <p class="card-text">Taille: 2.28 mètres<br>Poids: 258 kg<br>Alimentation: viande</p>
-                        <div class="icons">
-                            <div class="like"></div>
-                            <span class="like-count" data-id="2">0</span>
-                        </div>
+            <!-- Carte pour Sher Khan le Tigre -->
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="/image/tigre2.avif" alt="Image d'animal">
+                    <h4>Sher Khan le Tigre</h4>
+                    <p>Taille: 2.28 mètres</p>
+                    <p>Poids: 258 kg</p>
+                    <p>Alimentation: viande</p>
+
+                    <!-- Bouton Like -->
+                    <div class="like-container text-center">
+                        <button class="btn btn-outline-primary like-button" data-id="2">
+                            <i class="fas fa-heart like-icon"></i>
+                            <span class="like-count" data-id="2">0</span> Likes
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 mb-4">
-                <div class="card" data-id="3">
-                    <img src="/image/panda.jpg" class="card-img-top" alt="Pandi Le Panda">
-                    <div class="card-body">
-                        <h4 class="card-title">Pandi Le Panda</h4>
-                        <p class="card-text">Taille: 1.59 mètre<br>Poids: 103 kg<br>Alimentation: bambous, fruits</p>
-                        <div class="icons">
-                            <div class="like"></div>
-                            <span class="like-count" data-id="3">0</span>
-                        </div>
+            <!-- Carte pour Pandi le Panda -->
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="/image/panda.jpg" alt="Image d'animal">
+                    <h4>Pandi Le Panda</h4>
+                    <p>Taille: 1.59 mètre</p>
+                    <p>Poids: 103 kg</p>
+                    <p>Alimentation: bambous, fruits</p>
+
+                    <!-- Bouton Like -->
+                    <div class="like-container text-center">
+                        <button class="btn btn-outline-primary like-button" data-id="3">
+                            <i class="fas fa-heart like-icon"></i>
+                            <span class="like-count" data-id="3">0</span> Likes
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte pour Alfred l'Alligator -->
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="/image/aligator2.webp" alt="Image d'animal">
+                    <h4>Alfred L'Alligator</h4>
+                    <p>Taille: 3.76 mètres</p>
+                    <p>Poids: 180 kg</p>
+                    <p>Alimentation: viande</p>
+
+                    <!-- Bouton Like -->
+                    <div class="like-container text-center">
+                        <button class="btn btn-outline-primary like-button" data-id="4">
+                            <i class="fas fa-heart like-icon"></i>
+                            <span class="like-count" data-id="4">0</span> Likes
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <img src="/image/aligator2.webp" class="card-img-top" alt="Alfred L'Alligator">
-                <div class="card-body">
-                    <h4 class="card-title">Alfred L'Alligator</h4>
-                    <p class="card-text">Taille: 3.76 mètre<br>Poids: 180 kg<br>Alimentation: viande</p>
-                    <div class="icons">
-                        <div class="like"></div>
-                        <span class="like-count" data-id="3">0</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </main>
+    <!-- JavaScript pour gérer les likes -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const likeButtons = document.querySelectorAll('.like-button');
 
-    <footer class="bg-dark text-white text-center py-3">
-        <p>&copy; 2024 Arcadia Zoo Forêt de Brocéliande</p>
-        <div class="social-icons">
-            <img src="/image/image footer/icon-facebook.png" class="logo" alt="Facebook">
-            <img src="/image/image footer/icon-instagram.png" class="logo" alt="Instagram">
-            <img src="/image/image footer/icon-x.png" class="logo" alt="X">
-            <img src="/image/image footer/icon-whatsapp.jpg" class="logo" alt="WhatsApp">
-        </div>
-    </footer>
+            likeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const animalId = button.getAttribute('data-id');
+                    updateLikeCount(animalId, button);
+                });
+            });
+        });
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="scripts.js"></script>
+        function updateLikeCount(animalId, button) {
+            fetch('update_likes.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `animal_id=${animalId}`
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const likeCountElement = document.querySelector(`.like-count[data-id="${animalId}"]`);
+                    likeCountElement.textContent = data.likes_count;
+
+                    const likeIcon = button.querySelector('.like-icon');
+                    likeIcon.classList.add('liked-animation');
+
+                    setTimeout(() => likeIcon.classList.remove('liked-animation'), 200);
+                })
+                .catch(error => console.error('Erreur de mise à jour des likes:', error));
+        }
+    </script>
 </body>
 
 </html>
