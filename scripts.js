@@ -48,7 +48,4 @@ notif.addEventListener('click', () => {
     }
 })
 
-notif.addEventListener('animationend', () => {
-    notif.classList.toggle('anim-notif')
-})
 

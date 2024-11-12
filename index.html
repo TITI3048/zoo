@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arcadia Zoo - Accueil</title>
-    
+
     <!-- Lien vers Bootstrap et Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Lien vers CSS personnalisé -->
     <style>
@@ -28,10 +29,10 @@
         }
 
         .logo {
-    width: 300px;
-    height: 200px;
-    border-radius: 50%
-}
+            width: 300px;
+            height: 200px;
+            border-radius: 50%;
+        }
 
         /* Style du header */
         .hero-section {
@@ -39,12 +40,12 @@
             color: var(--primary-color);
             padding: 4rem 0;
         }
+
         .hero-section h1 {
             font-size: 2.5rem;
             font-weight: bold;
         }
 
-        /* Style des cartes d'animaux */
         /* Style des cartes d'animaux */
         .card {
             background-color: var(--light-color);
@@ -54,26 +55,251 @@
             padding: 20px;
             margin-bottom: 20px;
         }
+
         .card img {
             max-height: 300px;
             object-fit: cover;
             border-radius: 10px;
         }
+
         .card-title {
             color: var(--primary-color);
             font-weight: 600;
             font-size: 1.5rem;
         }
+
         .card-text {
             color: var(--primary-color);
         }
-        
 
         /* Bouton "Like" avec un cœur */
         .like-btn {
             color: var(--accent-color);
             transition: color 0.3s, background-color 0.3s;
         }
+
+        .like-btn:hover {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+
+        /* Section des avis */
+        .avis-section {
+            background-color: #f9f9f9;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 20px;
+            color: var(--dark-color);
+        }
+
+        .avis-section h3 {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .avis {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .avis h4 {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--secondary-color);
+        }
+
+        .avis p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--secondary-color);
+        }
+
+        /* Styles pour les étoiles de notation */
+        .note {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .note .fas {
+            font-size: 1.2rem;
+            color: #ffd700;
+            /* Couleur dorée pour les étoiles */
+            margin-right: 3px;
+        }
+
+        .note .fa-star {
+            color: #ccc;
+            /* Couleur grise pour les étoiles non remplies */
+        }
+
+        .note .filled {
+            color: #ffd700;
+            /* Couleur dorée pour les étoiles remplies */
+        }
+
+        /* Section de Contact et Plan du site */
+        .horaire-contact-section {
+            background-color: var(--secondary-color);
+            color: #fff;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .horaire-contact-section h3 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--light-color);
+        }
+
+        .horaire-contact-section p,
+        .horaire-contact-section a {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #fff;
+        }
+
+        .horaire-contact-section a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .horaire-contact-section a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        /* Modale pour le plan du site */
+        .modale {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modale_content {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modale_content img.plan {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .modale_close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+
+        .modale_close:hover {
+            color: var(--accent-color);
+        }
+
+        /* Modale pour laisser un avis */
+        .modale-avis {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modale_content-avis {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .modale_content-avis h3 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .modale_content-avis input[type="text"],
+        .modale_content-avis input[type="number"],
+        .modale_content-avis textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--dark-color);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .modale_content-avis button {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .modale_content-avis button:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* Réponses et interactions sur les boutons */
+        .horaire-contact-section button,
+        .like-btn {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            font-size: 1rem;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .horaire-contact-section button:hover,
         .like-btn:hover {
             background-color: var(--accent-color);
             color: #fff;
@@ -90,121 +316,218 @@
 
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark custom-navbar" style="background-color: var(--primary-color);">
-    <img src="/image/LOGO RINO 3.png" class="logo mb-3" alt="Logo Rino" title="Logo Rino">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
-            <li class="nav-item"><a class="nav-link" href="habitat.html">Habitats</a></li>
-            <li class="nav-item"><a class="nav-link" href="jungle.html">Jungle</a></li>
-            <li class="nav-item"><a class="nav-link" href="savane.html">Savane</a></li>
-            <li class="nav-item"><a class="nav-link" href="marais.html">Marais</a></li>
-            <li class="nav-item"><a class="nav-link" href="service.html">Services</a></li>
-            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-        </ul>
-    </div>
-</nav>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar" style="background-color: var(--primary-color);">
+        <img src="/image/LOGO RINO 3.png" class="logo mb-3" alt="Logo Rino" title="Logo Rino">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="habitat.html">Habitats</a></li>
+                <li class="nav-item"><a class="nav-link" href="jungle.html">Jungle</a></li>
+                <li class="nav-item"><a class="nav-link" href="savane.html">Savane</a></li>
+                <li class="nav-item"><a class="nav-link" href="marais.html">Marais</a></li>
+                <li class="nav-item"><a class="nav-link" href="service.html">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
-<!-- Header -->
-<header class="hero-section text-center">
-    <div class="container">
+    <!-- Hero Section -->
+    <header id="accueil" class="hero-section text-center">
         <h1>Bienvenue à Arcadia Zoo</h1>
-        <p>Découvrez les merveilles de la faune et de la flore</p>
-        <p>Nous sommes ravis de vous accueillir au Zoo Arcadia, un lieu magique où la nature et la faune se rencontrent !</p>
-        <a href="#animals" class="btn btn-primary" style="background-color: var(--secondary-color); border: none;">Explorez nos animaux les plus populaires</a>
-    </div>
-</header>
+        <p>Explorez la faune et découvrez nos animaux en danger.</p>
+        <a href="#animaux" class="btn btn-primary">Découvrez nos animaux</a>
+    </header>
 
-<!-- Section des animaux -->
-<section id="animals" class="py-5">
-    <div class="container">
-        <h2 class="text-center">Nos Animaux</h2>
-        <p class="text-center">Rencontrez nos merveilleux résidents !</p>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card">
-                    <img src="/image/lion.avif" class="card-img-top" alt="Lion">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Lion</h5>
-                        <p class="card-text">Moufassa, le roi de la jungle, majestueux et puissant.</p>
-                        <button class="btn btn-outline-primary like-btn"><i class="fas fa-heart"></i> Like</button>
+    <!-- Section Animaux -->
+    <section id="animals" class="py-5">
+        <div class="container">
+            <h2 class="text-center">Nos Animaux</h2>
+            <p class="text-center">Rencontrez nos merveilleux résidents !</p>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="/image/lion.avif" class="card-img-top" alt="Lion">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Lion</h5>
+                            <p class="card-text">Moufassa, le roi de la jungle, majestueux et puissant.</p>
+                            <button class="btn btn-outline-primary like-btn"><i class="fas fa-heart"></i> Like</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card">
-                    <img src="/image/elephant.avif" class="card-img-top" alt="Elephant">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Éléphant</h5>
-                        <p class="card-text">Babare, le géant doux et sage de la savane.</p>
-                        <button class="btn btn-outline-primary like-btn"><i class="fas fa-heart"></i> Like</button>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="/image/elephant.avif" class="card-img-top" alt="Elephant">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Éléphant</h5>
+                            <p class="card-text">Babare, le géant doux et sage de la savane.</p>
+                            <button class="btn btn-outline-primary like-btn"><i class="fas fa-heart"></i> Like</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card">
-                    <img src="/image/tigre.avif" class="card-img-top" alt="Tigre">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Tigre</h5>
-                        <p class="card-text">Sher khan, le prédateur rusé et gracieux de la jungle.</p>
-                        <button class="btn btn-outline-primary like-btn"><i class="fas fa-heart"></i> Like</button>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="/image/tigre.avif" class="card-img-top" alt="Tigre">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Tigre</h5>
+                            <p class="card-text">Sher khan, le prédateur rusé et gracieux de la jungle.</p>
+                            <button class="btn btn-outline-primary like-btn"><i class="fas fa-heart"></i> Like</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Section des habitats -->
-<section id="habitats" class="py-5 bg-light">
-    <div class="container">
-        <h2 class="text-center">Nos Habitats</h2>
-        <p class="text-center">Des environnements recréés pour chaque espèce.</p>
-        <div class="row">
-            <div class="col-md-4">
-                <h3>Jungle</h3>
-                <p>Entrez dans un monde sauvage et luxuriant...</p>
-                <p>Entrez dans un monde sauvage et luxuriant, où la canopée dense et les sons mystérieux vous
-                    transportent au cœur de la jungle. Ici, chaque pas vous rapproche des espèces exotiques qui
-                    vivent dans ce biotope, comme les tigres majestueux, les singes espiègles et les oiseaux
-                    multicolores. Un habitat où la vie est vibrante et l'aventure vous attend à chaque coin
-                    d’ombre."</p>
-            </div>
-            <div class="col-md-4">
-                <h3>Savane</h3>
-                <p>Un espace ouvert pour les géants de la terre...</p>
-                <p>Un espace ouvert pour les géants de la terre.La savane s'étend sous un ciel infini, baignée de
-                    lumière dorée et parsemée d'herbes hautes ondulant au gré du vent. Dans cet espace ouvert, les
-                    éléphants majestueux, les lions puissants et les antilopes agiles cohabitent dans un équilibre
-                    naturel. Ressentez la force et la sérénité de cet environnement unique, où chaque habitant
-                    incarne la vie sauvage de la savane africaine.</p>
-            </div>
-            <div class="col-md-4">
-                <h3>Marais</h3>
-                <p>Un environnement humide pour nos espèces aquatiques...</p>
-                <p>Un environnement humide pour nos espèces aquatiques. Plongez dans le monde mystérieux des marais,
-                    où l'eau et la terre se rencontrent dans un équilibre délicat. Ici, les crocodiles se glissent
-                    discrètement sous la surface, les oiseaux aquatiques plongent pour attraper leur proie, et une
-                    faune étonnante évolue dans cet habitat humide et fertile. Découvrez les secrets de ce lieu
-                    fascinant et ses créatures aussi énigmatiques qu'impressionnantes.</p>
+    <section id="habitats" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center">Nos Habitats</h2>
+            <p class="text-center">Des environnements recréés pour chaque espèce.</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>Jungle</h3>
+                    <p>Entrez dans un monde sauvage et luxuriant...</p>
+                    <p>Entrez dans un monde sauvage et luxuriant, où la canopée dense et les sons mystérieux vous
+                        transportent au cœur de la jungle. Ici, chaque pas vous rapproche des espèces exotiques qui
+                        vivent dans ce biotope, comme les tigres majestueux, les singes espiègles et les oiseaux
+                        multicolores. Un habitat où la vie est vibrante et l'aventure vous attend à chaque coin
+                        d’ombre."</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Savane</h3>
+                    <p>Un espace ouvert pour les géants de la terre...</p>
+                    <p>Un espace ouvert pour les géants de la terre.La savane s'étend sous un ciel infini, baignée de
+                        lumière dorée et parsemée d'herbes hautes ondulant au gré du vent. Dans cet espace ouvert, les
+                        éléphants majestueux, les lions puissants et les antilopes agiles cohabitent dans un équilibre
+                        naturel. Ressentez la force et la sérénité de cet environnement unique, où chaque habitant
+                        incarne la vie sauvage de la savane africaine.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Marais</h3>
+                    <p>Un environnement humide pour nos espèces aquatiques...</p>
+                    <p>Un environnement humide pour nos espèces aquatiques. Plongez dans le monde mystérieux des marais,
+                        où l'eau et la terre se rencontrent dans un équilibre délicat. Ici, les crocodiles se glissent
+                        discrètement sous la surface, les oiseaux aquatiques plongent pour attraper leur proie, et une
+                        faune étonnante évolue dans cet habitat humide et fertile.</p>
+                </div>
             </div>
         </div>
+    </section>
+
+    <!-- Section Avis -->
+    <section id="avis" class="avis-section">
+        <h3>Avis des Visiteurs</h3>
+        <div class="avis">
+            <h4>Marie Dupont</h4>
+            <div class="note">
+                <i class="fas fa-star filled"></i>
+                <i class="fas fa-star filled"></i>
+                <i class="fas fa-star filled"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <p>Un zoo exceptionnel avec des animaux magnifiques et un personnel très accueillant.</p>
+        </div>
+        <!-- Avis 2 -->
+        <div class="avis">
+            <h4>Lucas Martin</h4>
+            <div class="note">
+                <i class="fas fa-star filled"></i>
+                <i class="fas fa-star filled"></i>
+                <i class="fas fa-star filled"></i>
+                <i class="fas fa-star filled"></i>
+                <i class="fas fa-star filled"></i>
+            </div>
+            <p>Expérience incroyable ! Les habitats sont bien aménagés et les guides sont très instructifs. Je
+                recommande vivement !</p>
+        </div>
+
+        <!-- Avis 3 -->
+        <div class="avis">
+            <h4>Sophie Lemoine</h4>
+            <div class="note">
+                <i class="fas fa-star filled"></i>
+                <i class="fas fa-star filled"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <p>Un bon moment, mais certains enclos étaient en rénovation. Les enfants ont adoré malgré tout !</p>
+        </div>
+        </div>
+    </section>
+
+    <!-- Section Horaire et Contact -->
+    <section id="contact" class="horaire-contact-section">
+        <h3>Horaires d'Ouverture et Contact</h3>
+        <p class="p1">En semaine du lundi au vendredi<br>de 09h30 à 18h00</p>
+        <p class="p1">Les week-ends, jours fériés et les vacances scolaires<br>de 9h00 à 19h30</p>
+        <p>Contactez-nous : <a href="mailto:contact@arcadiazoo.com">contact@arcadiazoo.com</a></p>
+        <button onclick="openModalePlan()">Voir le Plan du Site</button>
+        <button onclick="openModaleAvis()">Laisser un Avis</button>
+    </section>
+
+    <!-- Modale Plan du site -->
+    <div class="modale" id="modalePlan">
+        <div class="modale_content">
+            <a href="#" class="modale_close" onclick="closeModalePlan()">×</a>
+            <img class="plan" src="/image/plan1.png" alt="Plan du zoo">
+        </div>
     </div>
-</section>
 
-<!-- Footer -->
-<footer class="text-center py-4" style="background-color: var(--primary-color); color: #fff;">
-    <p>&copy; 2024 Arcadia Zoo. Tous droits réservés.</p>
-</footer>
+    <!-- Modale pour laisser un avis -->
+    <div class="modale-avis" id="modaleAvis">
+        <div class="modale_content-avis">
+            <h3>Laissez votre avis</h3>
+            <form id="form-avis">
+                <input type="text" name="nom" placeholder="Votre nom" required>
+                <input type="number" name="note" min="1" max="5" placeholder="Note (1-5)" required>
+                <textarea name="commentaire" placeholder="Votre avis" required></textarea>
+                <button type="submit">Envoyer</button>
+            </form>
+            <a href="#" class="modale_close" onclick="closeModaleAvis()">×</a>
+        </div>
+    </div>
 
-<!-- JavaScript Bootstrap -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Arcadia Zoo - Tous droits réservés.</p>
+    </footer>
 
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function toggleLike(button) {
+            button.classList.toggle('liked');
+            if (button.classList.contains('liked')) {
+                button.innerHTML = '<i class="fas fa-heart"></i> Vous aimez';
+            } else {
+                button.innerHTML = '<i class="fas fa-heart"></i> J\'aime';
+            }
+        }
+
+        function openModalePlan() {
+            document.getElementById('modalePlan').style.display = 'flex';
+        }
+
+        function closeModalePlan() {
+            document.getElementById('modalePlan').style.display = 'none';
+        }
+
+        function openModaleAvis() {
+            document.getElementById('modaleAvis').style.display = 'flex';
+        }
+
+        function closeModaleAvis() {
+            document.getElementById('modaleAvis').style.display = 'none';
+        }
+    </script>
 </body>
+
 </html>
