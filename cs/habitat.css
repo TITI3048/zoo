@@ -81,6 +81,11 @@ header {
     background-color: var(--accent-color);
     color: #ffffff;
 }
+.carousel-inner {
+    border-radius: 20px;
+    width: 100%;
+    height: 600px;
+}
 
 /* Images des habitats */
 .habitat-section .img-fluid {
