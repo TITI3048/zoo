@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcadia Zoo - Services</title>
+
+    <!-- Lien vers Bootstrap et Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="cs/services.css">
+
+    <style>
+        :root {
+            --primary-color: #2a9d8f;
+            --secondary-color: #264653;
+            --accent-color: #e76f51;
+            --light-color: #f4a261;
+            --dark-color: #1d3557;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--light-color);
+            color: var(--secondary-color);
+            padding: 20px;
+        }
+
+        .service-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+
+        .card {
+            background-color: var(--light-color);
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            padding: 15px;
+        }
+
+        .card img {
+            border-radius: 8px;
+            width: 100%;
+            height: 250px;
+        }
+
+        .card h4 {
+            color: var(--primary-color);
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="bg-dark text-white text-center py-4">
+        <nav class="navbar navbar-expand-lg navbar-dark custom-navbar" style="background-color: var(--primary-color);">
+            <img src="/image/LOGO RINO 3.png" class="logo mb-3" alt="Logo Rino" title="Logo Rino">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="habitat.html">Habitats</a></li>
+                    <li class="nav-item"><a class="nav-link" href="jungle.html">Jungle</a></li>
+                    <li class="nav-item"><a class="nav-link" href="savane.html">Savane</a></li>
+                    <li class="nav-item"><a class="nav-link" href="marais.html">Marais</a></li>
+                    <li class="nav-item"><a class="nav-link" href="service.html">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- En-tête de la page -->
+    <div class="service-header">
+        <h1>Nos Services</h1>
+        <p>Profitez de diverses activités et options de restauration au parc Arcadia Zoo !</p>
+    </div>
+
+    <!-- Section des services de visite -->
+    <div class="container">
+        <div class="row">
+            <!-- Service : Visite en petit train -->
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="/image/petit-train.jpg" alt="Visite en petit train">
+                    <h4>Visite en Petit Train</h4>
+                    <p>Faites un tour du parc à bord de notre petit train et découvrez les différents habitats en tout confort.</p>
+                </div>
+            </div>
+
+            <!-- Service : Visite guidée avec un spécialiste -->
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="/image/visite-guidee.jpg" alt="Visite guidée">
+                    <h4>Visite Guidée avec un Spécialiste</h4>
+                    <p>Explorez le parc avec un guide spécialisé et découvrez des informations fascinantes sur nos animaux.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section des services de restauration -->
+    <div class="container">
+        <div class="row">
+            <!-- Service : Restaurant avec vue sur les animaux -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/image/restaurant-vue.jpg" alt="Restaurant vue sur les animaux">
+                    <h4>Restaurant Vue sur les Animaux</h4>
+                    <p>Dégustez un repas gastronomique tout en admirant les animaux dans leur habitat naturel.</p>
+                </div>
+            </div>
+
+            <!-- Service : Food Truck -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/image/food-truck.jpg" alt="Food Truck">
+                    <h4>Food Truck</h4>
+                    <p>Une sélection de plats rapides et savoureux pour manger sur le pouce entre les visites.</p>
+                </div>
+            </div>
+
+            <!-- Service : Glacier -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="/image/glacier.jpg" alt="Glacier">
+                    <h4>Glacier</h4>
+                    <p>Rafraîchissez-vous avec nos délicieuses glaces et sorbets, parfaits pour les journées ensoleillées au zoo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2024 Arcadia Zoo Forêt de Brocéliande</p>
+        <div class="social-icons">
+            <img src="/image/image footer/icon-facebook.png" class="logo" alt="Facebook">
+            <img src="/image/image footer/icon-instagram.png" class="logo" alt="Instagram">
+            <img src="/image/image footer/icon-x.png" class="logo" alt="X">
+            <img src="/image/image footer/icon-whatsapp.jpg" class="logo" alt="WhatsApp">
+        </div>
+    </footer>
+
+    <!-- Liens vers les scripts JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
