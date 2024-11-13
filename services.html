@@ -27,11 +27,30 @@
             padding: 20px;
         }
 
+        .logo {
+            width: 300px;
+            height: 200px;
+            border-radius: 50%
+        }
+
         .service-header {
             text-align: center;
             margin-bottom: 30px;
             color: var(--primary-color);
         }
+
+        .zoo-presentation {
+            padding: 20px;
+            background-color: var(--light-color);
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+        }
+
+        .zoo-presentation h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
 
         .card {
             background-color: var(--light-color);
@@ -85,24 +104,40 @@
         <p>Profitez de diverses activités et options de restauration au parc Arcadia Zoo !</p>
     </div>
 
+    <section class="zoo-presentation text-center my-4">
+        <h2>Bienvenue à Arcadia Zoo</h2>
+        <p>Explorez notre parc animalier et découvrez des habitats uniques pour nos animaux.</p>
+        <video controls width="80%" height="400">
+            <source src="/image/video visite zoo.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la balise vidéo.
+        </video>
+        <video controls width="80%" height="400">
+            <source src="/image/video visite zoo3.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la balise vidéo.
+        </video>
+    </section>
+
+
     <!-- Section des services de visite -->
     <div class="container">
         <div class="row">
             <!-- Service : Visite en petit train -->
             <div class="col-md-6">
                 <div class="card">
-                    <img src="/image/petit-train.jpg" alt="Visite en petit train">
+                    <img src="/image/petit train.jpg" alt="Visite en petit train">
                     <h4>Visite en Petit Train</h4>
-                    <p>Faites un tour du parc à bord de notre petit train et découvrez les différents habitats en tout confort.</p>
+                    <p>Faites un tour du parc à bord de notre petit train et découvrez les différents habitats en tout
+                        confort.</p>
                 </div>
             </div>
 
             <!-- Service : Visite guidée avec un spécialiste -->
             <div class="col-md-6">
                 <div class="card">
-                    <img src="/image/visite-guidee.jpg" alt="Visite guidée">
+                    <img src="/image/guide.jpg" alt="Visite guidée">
                     <h4>Visite Guidée avec un Spécialiste</h4>
-                    <p>Explorez le parc avec un guide spécialisé et découvrez des informations fascinantes sur nos animaux.</p>
+                    <p>Explorez le parc avec un guide spécialisé et découvrez des informations fascinantes sur nos
+                        animaux.</p>
                 </div>
             </div>
         </div>
@@ -114,7 +149,7 @@
             <!-- Service : Restaurant avec vue sur les animaux -->
             <div class="col-md-4">
                 <div class="card">
-                    <img src="/image/restaurant-vue.jpg" alt="Restaurant vue sur les animaux">
+                    <img src="/image/restauration 2.jpg" alt="Restaurant vue sur les animaux">
                     <h4>Restaurant Vue sur les Animaux</h4>
                     <p>Dégustez un repas gastronomique tout en admirant les animaux dans leur habitat naturel.</p>
                 </div>
@@ -123,7 +158,7 @@
             <!-- Service : Food Truck -->
             <div class="col-md-4">
                 <div class="card">
-                    <img src="/image/food-truck.jpg" alt="Food Truck">
+                    <img src="/image/food truck.jpg" alt="Food Truck">
                     <h4>Food Truck</h4>
                     <p>Une sélection de plats rapides et savoureux pour manger sur le pouce entre les visites.</p>
                 </div>
@@ -132,9 +167,10 @@
             <!-- Service : Glacier -->
             <div class="col-md-4">
                 <div class="card">
-                    <img src="/image/glacier.jpg" alt="Glacier">
+                    <img src="/image/glace.avif" alt="Glacier">
                     <h4>Glacier</h4>
-                    <p>Rafraîchissez-vous avec nos délicieuses glaces et sorbets, parfaits pour les journées ensoleillées au zoo.</p>
+                    <p>Rafraîchissez-vous avec nos délicieuses glaces et sorbets, parfaits pour les journées
+                        ensoleillées au zoo.</p>
                 </div>
             </div>
         </div>
