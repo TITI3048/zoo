@@ -68,26 +68,60 @@
             transition: transform 0.2s ease, color 0.3s ease;
         }
 
-        /* Style des cartes des animaux */
-        .card {
-            background-color: var(--light-color);
-            color: var(--secondary-color);
-            border: 1px solid var(--secondary-color);
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 20px 0;
-            padding: 15px;
+        /* Styles des cartes flip */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 350px;
+            perspective: 1000px;
+            margin-bottom: 20px;
         }
 
-        .card img {
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 3s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flip-card-front {
+            background-color: var(--light-color);
+            border: 1px solid var(--secondary-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flip-card-back {
+            background-color: var(--primary-color);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .animal-image {
             border-radius: 8px;
             width: 100%;
-            height: 400px;
-        }
-
-        .card h4 {
-            color: var(--primary-color);
-            font-size: 1.2em;
+            height: 300px;
+            object-fit: cover;
         }
 
         /* Footer */
@@ -149,86 +183,112 @@
         </p>
     </header>
 
-    <!-- Section des cartes d'animaux -->
     <div class="container">
         <div class="row">
-            <!-- Carte pour Simba le Lion -->
+            <!-- Flip Card pour Simba le Lion -->
             <div class="col-md-6">
-                <div class="card">
-                    <img src="/image/lion2.jpg" alt="Lion">
-                    <h4>Simba le Lion</h4>
-                    <p>Taille: 1.2 mètres</p>
-                    <p>Poids: 190 kg</p>
-                    <p>Alimentation: Viande</p>
-
-                    <!-- Bouton Like -->
-                    <div class="like-container text-center">
-                        <button class="btn btn-outline-primary like-button" data-id="5">
-                            <i class="fas fa-heart like-icon"></i>
-                            <span class="like-count" data-id="5">0</span> Likes
-                        </button>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <!-- Recto -->
+                        <div class="flip-card-front">
+                            <img src="/image/lion2.jpg" alt="Simba le Lion" class="animal-image">
+                            <h4>Simba le Lion</h4>
+                        </div>
+                        <!-- Verso -->
+                        <div class="flip-card-back">
+                            <h4>Simba le Lion</h4>
+                            <p>Taille: 1.2 mètres</p>
+                            <p>Poids: 190 kg</p>
+                            <p>Alimentation: Viande</p>
+                            <p>soin:</p>
+                            <div class="like-container text-center">
+                                <button class="btn btn-outline-primary like-button" data-id="5">
+                                    <i class="fas fa-heart like-icon"></i>
+                                    <span class="like-count" data-id="5">0</span> Likes
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Carte pour Ellie l'Éléphant -->
+    
+            <!-- Flip Card pour Ellie l'Éléphant -->
             <div class="col-md-6">
-                <div class="card">
-                    <img src="/image/elephant2.avif" alt="Éléphant">
-                    <h4>Ellie l'Éléphant</h4>
-                    <p>Taille: 3 mètres</p>
-                    <p>Poids: 5400 kg</p>
-                    <p>Alimentation: Herbes, feuilles, fruits</p>
-
-                    <!-- Bouton Like -->
-                    <div class="like-container text-center">
-                        <button class="btn btn-outline-primary like-button" data-id="6">
-                            <i class="fas fa-heart like-icon"></i>
-                            <span class="like-count" data-id="6">0</span> Likes
-                        </button>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="/image/elephant2.avif" alt="Ellie l'Éléphant" class="animal-image">
+                            <h4>Ellie l'Éléphant</h4>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>Ellie l'Éléphant</h4>
+                            <p>Taille: 3 mètres</p>
+                            <p>Poids: 5400 kg</p>
+                            <p>Alimentation: Herbes, feuilles, fruits</p>
+                            <p>soin:</p>
+                            <div class="like-container text-center">
+                                <button class="btn btn-outline-primary like-button" data-id="5">
+                                    <i class="fas fa-heart like-icon"></i>
+                                    <span class="like-count" data-id="5">0</span> Likes
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Carte pour Zuri la Girafe -->
+    
+            <!-- Flip Card pour Zuri la Girafe -->
             <div class="col-md-6">
-                <div class="card">
-                    <img src="/image/giraffe.jpg" alt="Girafe">
-                    <h4>Zuri la Girafe</h4>
-                    <p>Taille: 5.5 mètres</p>
-                    <p>Poids: 800 kg</p>
-                    <p>Alimentation: Feuilles, brindilles</p>
-
-                    <!-- Bouton Like -->
-                    <div class="like-container text-center">
-                        <button class="btn btn-outline-primary like-button" data-id="7">
-                            <i class="fas fa-heart like-icon"></i>
-                            <span class="like-count" data-id="7">0</span> Likes
-                        </button>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="/image/giraffe.jpg" alt="Zuri la Girafe" class="animal-image">
+                            <h4>Zuri la Girafe</h4>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>Zuri la Girafe</h4>
+                            <p>Taille: 5.5 mètres</p>
+                            <p>Poids: 800 kg</p>
+                            <p>Alimentation: Feuilles, brindilles</p>
+                            <p>soin:</p>
+                            <div class="like-container text-center">
+                                <button class="btn btn-outline-primary like-button" data-id="5">
+                                    <i class="fas fa-heart like-icon"></i>
+                                    <span class="like-count" data-id="5">0</span> Likes
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Carte pour Pumba le Phacochère -->
+    
+            <!-- Flip Card pour le Zèbre -->
             <div class="col-md-6">
-                <div class="card">
-                    <img src="/image/zebres2.jpg" alt="zébre">
-                    <h4>le zébre</h4>
-                    <p>Taille: 0.85 mètre</p>
-                    <p>Poids: 80 kg</p>
-                    <p>Alimentation: Herbes, racines, fruits</p>
-
-                    <!-- Bouton Like -->
-                    <div class="like-container text-center">
-                        <button class="btn btn-outline-primary like-button" data-id="8">
-                            <i class="fas fa-heart like-icon"></i>
-                            <span class="like-count" data-id="8">0</span> Likes
-                        </button>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="/image/zebres2.jpg" alt="Le Zèbre" class="animal-image">
+                            <h4>Le Zèbre</h4>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>Le Zèbre</h4>
+                            <p>Taille: 0.85 mètre</p>
+                            <p>Poids: 80 kg</p>
+                            <p>Alimentation: Herbes, racines, fruits</p>
+                            <p>soin:</p>
+                            <div class="like-container text-center">
+                                <button class="btn btn-outline-primary like-button" data-id="5">
+                                    <i class="fas fa-heart like-icon"></i>
+                                    <span class="like-count" data-id="5">0</span> Likes
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
 
     <footer class="bg-dark text-white text-center py-3">
         <p>&copy; 2024 Arcadia Zoo Forêt de Brocéliande</p>

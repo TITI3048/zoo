@@ -68,26 +68,60 @@
             transition: transform 0.2s ease, color 0.3s ease;
         }
 
-        /* Style des cartes des animaux */
-        .card {
-            background-color: var(--light-color);
-            color: var(--secondary-color);
-            border: 1px solid var(--secondary-color);
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 20px 0;
-            padding: 15px;
+        /* Styles des cartes flip */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 350px;
+            perspective: 1000px;
+            margin-bottom: 20px;
         }
 
-        .card img {
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 3s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flip-card-front {
+            background-color: var(--light-color);
+            border: 1px solid var(--secondary-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flip-card-back {
+            background-color: var(--primary-color);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .animal-image {
             border-radius: 8px;
             width: 100%;
-            height: 400px;
-        }
-
-        .card h4 {
-            color: var(--primary-color);
-            font-size: 1.2em;
+            height: 300px;
+            object-fit: cover;
         }
 
         /* Footer */
@@ -141,94 +175,125 @@
     <!-- Header avec logo -->
     <header>
         <h1>Bienvenue dans le Marais d'Arcadia Zoo</h1>
-        <p>Découvrez les animaux fascinants du marais !
-            Le marais est un écosystème humide où l’eau et la terre se rencontrent pour former un habitat unique. Les marais abritent une faune et une flore diversifiées, allant des poissons et amphibiens aux oiseaux aquatiques et reptiles, tels que les tortues et les crocodiles.
+        <p>Découvrez les animaux fascinants du marais !</p>
+            <p>Le marais est un écosystème humide où l’eau et la terre se rencontrent pour former un habitat unique. Les marais abritent une faune et une flore diversifiées, allant des poissons et amphibiens aux oiseaux aquatiques et reptiles, tels que les tortues et les crocodiles.
             Les plantes aquatiques, comme les roseaux et les nénuphars, jouent un rôle important en purifiant l'eau et en offrant un abri aux nombreuses espèces.
             En tant qu’écosystème fragile, le marais représente un équilibre vital entre l’eau et la terre, contribuant à la régulation des inondations et au maintien de la biodiversité.
         </p>
     </header>
 
-    <!-- Section des cartes d'animaux -->
     <div class="container">
         <div class="row">
-            <!-- Carte pour Hippy l'Hippopotame -->
+            <!-- Flip Card pour Hippy l'Hippopotame -->
             <div class="col-md-6">
-                <div class="card">
-                    <img src="/image/hippopotame2.jpg" alt="Hippopotame">
-                    <h4>Hippy l'Hippopotame</h4>
-                    <p>Taille: 1.5 mètre</p>
-                    <p>Poids: 1,500 kg</p>
-                    <p>Alimentation: Herbes, plantes aquatiques</p>
-
-                    <!-- Bouton Like -->
-                    <div class="like-container text-center">
-                        <button class="btn btn-outline-primary like-button" data-id="12">
-                            <i class="fas fa-heart like-icon"></i>
-                            <span class="like-count" data-id="12">0</span> Likes
-                        </button>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <!-- Recto -->
+                        <div class="flip-card-front">
+                            <img src="/image/hippopotame2.jpg" alt="Hippy l'Hippopotame" class="animal-image">
+                            <h4>Hippy l'Hippopotame</h4>
+                        </div>
+                        <!-- Verso -->
+                        <div class="flip-card-back">
+                            <h4>Hippy l'Hippopotame</h4>
+                            <p>Taille: 1.5 mètre</p>
+                            <p>Poids: 1,500 kg</p>
+                            <p>Alimentation: Herbes, plantes aquatiques</p>
+                            <p>soin:</p>
+                            <div class="like-container text-center">
+                                <button class="btn btn-outline-primary like-button" data-id="5">
+                                    <i class="fas fa-heart like-icon"></i>
+                                    <span class="like-count" data-id="5">0</span> Likes
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Carte pour un héron -->
+    
+            <!-- Flip Card pour Herry le Héron -->
             <div class="col-md-6">
-                <div class="card">
-                    <img src="/image/heron2.jpg" alt="Héron">
-                    <h4>Herry le Héron</h4>
-                    <p>Taille: 1 mètre</p>
-                    <p>Poids: 2 kg</p>
-                    <p>Alimentation: Poissons, insectes, petits mammifères</p>
-
-                    <!-- Bouton Like -->
-                    <div class="like-container text-center">
-                        <button class="btn btn-outline-primary like-button" data-id="11">
-                            <i class="fas fa-heart like-icon"></i>
-                            <span class="like-count" data-id="11">0</span> Likes
-                        </button>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <!-- Recto -->
+                        <div class="flip-card-front">
+                            <img src="/image/heron2.jpg" alt="Herry le Héron" class="animal-image">
+                            <h4>Herry le Héron</h4>
+                        </div>
+                        <!-- Verso -->
+                        <div class="flip-card-back">
+                            <h4>Herry le Héron</h4>
+                            <p>Taille: 1 mètre</p>
+                            <p>Poids: 2 kg</p>
+                            <p>Alimentation: Poissons, insectes, petits mammifères</p>
+                            <p>soin:</p>
+                            <div class="like-container text-center">
+                                <button class="btn btn-outline-primary like-button" data-id="5">
+                                    <i class="fas fa-heart like-icon"></i>
+                                    <span class="like-count" data-id="5">0</span> Likes
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Carte pour Crocky le Crocodile -->
+    
+            <!-- Flip Card pour Crocky le Crocodile -->
             <div class="col-md-6">
-                <div class="card">
-                    <img src="/image/crocodile2.jpg" alt="Crocodile">
-                    <h4>Crocky le Crocodile</h4>
-                    <p>Taille: 5 mètres</p>
-                    <p>Poids: 700 kg</p>
-                    <p>Alimentation: Poissons, petits mammifères</p>
-
-                    <!-- Bouton Like -->
-                    <div class="like-container text-center">
-                        <button class="btn btn-outline-primary like-button" data-id="13">
-                            <i class="fas fa-heart like-icon"></i>
-                            <span class="like-count" data-id="13">0</span> Likes
-                        </button>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <!-- Recto -->
+                        <div class="flip-card-front">
+                            <img src="/image/crocodile2.jpg" alt="Crocky le Crocodile" class="animal-image">
+                            <h4>Crocky le Crocodile</h4>
+                        </div>
+                        <!-- Verso -->
+                        <div class="flip-card-back">
+                            <h4>Crocky le Crocodile</h4>
+                            <p>Taille: 5 mètres</p>
+                            <p>Poids: 700 kg</p>
+                            <p>Alimentation: Poissons, petits mammifères</p>
+                            <p>soin:</p>
+                            <div class="like-container text-center">
+                                <button class="btn btn-outline-primary like-button" data-id="5">
+                                    <i class="fas fa-heart like-icon"></i>
+                                    <span class="like-count" data-id="5">0</span> Likes
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Carte pour Piki l'Oiseau -->
+    
+            <!-- Flip Card pour Piki le Flamant rose -->
             <div class="col-md-6">
-                <div class="card">
-                    <img src="/image/flamant rose.jpg" alt="Flamant rose">
-                    <h4>Piki le flamant rose</h4>
-                    <p>Taille: 0.4 mètre</p>
-                    <p>Poids: 1.2 kg</p>
-                    <p>Alimentation: Insectes, petits fruits</p>
-
-                    <!-- Bouton Like -->
-                    <div class="like-container text-center">
-                        <button class="btn btn-outline-primary like-button" data-id="14">
-                            <i class="fas fa-heart like-icon"></i>
-                            <span class="like-count" data-id="14">0</span> Likes
-                        </button>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <!-- Recto -->
+                        <div class="flip-card-front">
+                            <img src="/image/flamant rose.jpg" alt="Piki le Flamant rose" class="animal-image">
+                            <h4>Piki le Flamant rose</h4>
+                        </div>
+                        <!-- Verso -->
+                        <div class="flip-card-back">
+                            <h4>Piki le Flamant rose</h4>
+                            <p>Taille: 0.4 mètre</p>
+                            <p>Poids: 1.2 kg</p>
+                            <p>Alimentation: Insectes, petits fruits</p>
+                            <p>soin:</p>
+                            <div class="like-container text-center">
+                                <button class="btn btn-outline-primary like-button" data-id="5">
+                                    <i class="fas fa-heart like-icon"></i>
+                                    <span class="like-count" data-id="5">0</span> Likes
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+    
 
     <footer class="bg-dark text-white text-center py-3">
         <p>&copy; 2024 Arcadia Zoo Forêt de Brocéliande</p>

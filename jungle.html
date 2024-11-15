@@ -68,26 +68,60 @@
             transition: transform 0.2s ease, color 0.3s ease;
         }
 
-        /* Style des cartes des animaux */
-        .card {
-            background-color: var(--light-color);
-            color: var(--secondary-color);
-            border: 1px solid var(--secondary-color);
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 20px 0;
-            padding: 15px;
+        /* Styles des cartes flip */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 350px;
+            perspective: 1000px;
+            margin-bottom: 20px;
         }
 
-        .card img {
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 3s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flip-card-front {
+            background-color: var(--light-color);
+            border: 1px solid var(--secondary-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flip-card-back {
+            background-color: var(--primary-color);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .animal-image {
             border-radius: 8px;
             width: 100%;
-            height: auto;
-        }
-
-        .card h4 {
-            color: var(--primary-color);
-            font-size: 1.2em;
+            height: 300px;
+            object-fit: cover;
         }
 
         /* Footer */
@@ -143,92 +177,122 @@
             alt="jungle">
         <h1>Bienvenue dans la Jungle d'Arcadia Zoo</h1>
         <p>Découvrez nos animaux exotiques et sauvages!</p>
-        <p>La jungle est un environnement dense et luxuriant, caractérisé par une végétation abondante et une biodiversité exceptionnelle.
-            C’est l’habitat d’innombrables espèces d'animaux, tels que les singes, les perroquets, et les jaguars, ainsi que d'une multitude d'insectes et de plantes tropicales.
-            Ce milieu humide et ombragé est une source de vie inépuisable où chaque plante et animal joue un rôle essentiel.
-            La jungle est aussi connue pour ses grands arbres à la canopée dense, créant un écosystème unique qui abrite la majorité des espèces terrestres sur notre planète.</p>
+        <p>La jungle est un environnement dense et luxuriant, caractérisé par une végétation abondante et une
+            biodiversité exceptionnelle.
+            C’est l’habitat d’innombrables espèces d'animaux, tels que les singes, les perroquets, et les jaguars, ainsi
+            que d'une multitude d'insectes et de plantes tropicales.
+            Ce milieu humide et ombragé est une source de vie inépuisable où chaque plante et animal joue un rôle
+            essentiel.
+            La jungle est aussi connue pour ses grands arbres à la canopée dense, créant un écosystème unique qui abrite
+            la majorité des espèces terrestres sur notre planète.</p>
     </header>
 
-    <!-- Section des cartes d'animaux -->
     <div class="container">
         <div class="row">
-            <!-- Carte pour Koko le Gorille -->
+            <!-- Flip Card pour Koko le Gorille -->
             <div class="col-md-6">
-                <div class="card">
-                    <img src="/image/gorille.jpg" alt="Image d'animal">
-                    <h4>Koko le Gorille</h4>
-                    <p>Taille: 1.63 mètre</p>
-                    <p>Poids: 190 kg</p>
-                    <p>Alimentation: Feuilles, tiges, pousses de plantes, bananes</p>
-
-                    <!-- Bouton Like -->
-                    <div class="like-container text-center">
-                        <button class="btn btn-outline-primary like-button" data-id="1">
-                            <i class="fas fa-heart like-icon"></i>
-                            <span class="like-count" data-id="1">0</span> Likes
-                        </button>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <!-- Recto -->
+                        <div class="flip-card-front">
+                            <img src="/image/gorille.jpg" alt="Koko le Gorille" class="animal-image">
+                            <h4>Koko le Gorille</h4>
+                        </div>
+                        <!-- Verso -->
+                        <div class="flip-card-back">
+                            <h4>Koko le Gorille</h4>
+                            <p>Taille: 1.63 mètre</p>
+                            <p>Poids: 190 kg</p>
+                            <p>Alimentation: Feuilles, tiges, pousses de plantes, bananes</p>
+                            <p>soin:</p>
+                            <div class="like-container text-center">
+                                <button class="btn btn-outline-primary like-button" data-id="5">
+                                    <i class="fas fa-heart like-icon"></i>
+                                    <span class="like-count" data-id="5">0</span> Likes
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Carte pour Sher Khan le Tigre -->
+            <!-- Flip Card pour Sher Khan le Tigre -->
             <div class="col-md-6">
-                <div class="card">
-                    <img src="/image/tigre2.avif" alt="Image d'animal">
-                    <h4>Sher Khan le Tigre</h4>
-                    <p>Taille: 2.28 mètres</p>
-                    <p>Poids: 258 kg</p>
-                    <p>Alimentation: viande</p>
-
-                    <!-- Bouton Like -->
-                    <div class="like-container text-center">
-                        <button class="btn btn-outline-primary like-button" data-id="2">
-                            <i class="fas fa-heart like-icon"></i>
-                            <span class="like-count" data-id="2">0</span> Likes
-                        </button>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="/image/tigre2.avif" alt="Sher Khan le Tigre" class="animal-image">
+                            <h4>Sher Khan le Tigre</h4>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>Sher Khan le Tigre</h4>
+                            <p>Taille: 2.28 mètres</p>
+                            <p>Poids: 258 kg</p>
+                            <p>Alimentation: viande</p>
+                            <p>soin:</p>
+                            <div class="like-container text-center">
+                                <button class="btn btn-outline-primary like-button" data-id="5">
+                                    <i class="fas fa-heart like-icon"></i>
+                                    <span class="like-count" data-id="5">0</span> Likes
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Carte pour Pandi le Panda -->
+            <!-- Flip Card pour Pandi le Panda -->
             <div class="col-md-6">
-                <div class="card">
-                    <img src="/image/panda.jpg" alt="Image d'animal">
-                    <h4>Pandi Le Panda</h4>
-                    <p>Taille: 1.59 mètre</p>
-                    <p>Poids: 103 kg</p>
-                    <p>Alimentation: bambous, fruits</p>
-
-                    <!-- Bouton Like -->
-                    <div class="like-container text-center">
-                        <button class="btn btn-outline-primary like-button" data-id="3">
-                            <i class="fas fa-heart like-icon"></i>
-                            <span class="like-count" data-id="3">0</span> Likes
-                        </button>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="/image/panda.jpg" alt="Pandi Le Panda" class="animal-image">
+                            <h4>Pandi Le Panda</h4>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>Pandi Le Panda</h4>
+                            <p>Taille: 1.59 mètre</p>
+                            <p>Poids: 103 kg</p>
+                            <p>Alimentation: bambous, fruits</p>
+                            <p>soin:</p>
+                            <div class="like-container text-center">
+                                <button class="btn btn-outline-primary like-button" data-id="5">
+                                    <i class="fas fa-heart like-icon"></i>
+                                    <span class="like-count" data-id="5">0</span> Likes
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Carte pour Alfred l'Alligator -->
+            <!-- Flip Card pour Alfred l'Alligator -->
             <div class="col-md-6">
-                <div class="card">
-                    <img src="/image/aligator2.webp" alt="Image d'animal">
-                    <h4>Alfred L'Alligator</h4>
-                    <p>Taille: 3.76 mètres</p>
-                    <p>Poids: 180 kg</p>
-                    <p>Alimentation: viande</p>
-
-                    <!-- Bouton Like -->
-                    <div class="like-container text-center">
-                        <button class="btn btn-outline-primary like-button" data-id="4">
-                            <i class="fas fa-heart like-icon"></i>
-                            <span class="like-count" data-id="4">0</span> Likes
-                        </button>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="/image/aligator2.webp" alt="Alfred L'Alligator" class="animal-image">
+                            <h4>Alfred L'Alligator</h4>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4>Alfred L'Alligator</h4>
+                            <p>Taille: 3.76 mètres</p>
+                            <p>Poids: 180 kg</p>
+                            <p>Alimentation: viande</p>
+                            <p>soin:</p>
+                            <div class="like-container text-center">
+                                <button class="btn btn-outline-primary like-button" data-id="5">
+                                    <i class="fas fa-heart like-icon"></i>
+                                    <span class="like-count" data-id="5">0</span> Likes
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <footer class="bg-dark text-white text-center py-3">
         <p>&copy; 2024 Arcadia Zoo Forêt de Brocéliande</p>
