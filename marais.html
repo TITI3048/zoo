@@ -5,14 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arcadia Zoo - Marais</title>
-
-    <!-- Lien vers Bootstrap et Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="/cs/marais.css">
 
     <style>
-        /* Définition des couleurs de thème */
         :root {
             --primary-color: #2a9d8f;
             --secondary-color: #264653;
@@ -21,7 +18,6 @@
             --dark-color: #1d3557;
         }
 
-        /* Styles généraux */
         body {
             font-family: Arial, sans-serif;
             background-color: var(--light-color);
@@ -29,7 +25,6 @@
             padding: 20px;
         }
 
-        /* Styles du header */
         header {
             text-align: center;
             margin-bottom: 30px;
@@ -41,7 +36,6 @@
             margin-right: 400px;
         }
 
-        /* Bouton de like */
         .like-container {
             display: inline-block;
             margin: 20px;
@@ -66,15 +60,13 @@
         .like-button:active .like-icon {
             transform: scale(1.2);
         }
-
-        /* Animation de pouls pour le like */
+        
         .liked-animation {
             color: var(--accent-color) !important;
             transform: scale(1.5);
             transition: transform 0.2s ease, color 0.3s ease;
         }
 
-        /* Styles des cartes flip */
         .flip-card {
             background-color: transparent;
             width: 100%;
@@ -130,7 +122,6 @@
             object-fit: cover;
         }
 
-        /* Footer */
         footer {
             background-color: var(--secondary-color);
             color: #fff;
@@ -178,7 +169,6 @@
 </header>
 
 <body>
-    <!-- Header avec logo -->
     <header>
         <img src="https://img.freepik.com/photos-premium/chien-dans-lac_1048944-23761918.jpg?w=900"
             alt="jungle">
@@ -198,16 +188,13 @@
 
     <div class="container">
         <div class="row">
-            <!-- Flip Card pour Hippy l'Hippopotame -->
             <div class="col-md-6">
                 <div class="flip-card">
                     <div class="flip-card-inner">
-                        <!-- Recto -->
                         <div class="flip-card-front">
                             <img src="/image/hippopotame2.jpg" alt="Hippy l'Hippopotame" class="animal-image">
                             <h4>Hippy l'Hippopotame</h4>
                         </div>
-                        <!-- Verso -->
                         <div class="flip-card-back">
                             <h4>Hippy l'Hippopotame</h4>
                             <p>Taille: 1.5 mètre</p>
@@ -225,16 +212,13 @@
                 </div>
             </div>
 
-            <!-- Flip Card pour Herry le Héron -->
             <div class="col-md-6">
                 <div class="flip-card">
                     <div class="flip-card-inner">
-                        <!-- Recto -->
                         <div class="flip-card-front">
                             <img src="/image/heron2.jpg" alt="Herry le Héron" class="animal-image">
                             <h4>Herry le Héron</h4>
                         </div>
-                        <!-- Verso -->
                         <div class="flip-card-back">
                             <h4>Herry le Héron</h4>
                             <p>Taille: 1 mètre</p>
@@ -252,16 +236,13 @@
                 </div>
             </div>
 
-            <!-- Flip Card pour Crocky le Crocodile -->
             <div class="col-md-6">
                 <div class="flip-card">
                     <div class="flip-card-inner">
-                        <!-- Recto -->
                         <div class="flip-card-front">
                             <img src="/image/crocodile2.jpg" alt="Crocky le Crocodile" class="animal-image">
                             <h4>Crocky le Crocodile</h4>
                         </div>
-                        <!-- Verso -->
                         <div class="flip-card-back">
                             <h4>Crocky le Crocodile</h4>
                             <p>Taille: 5 mètres</p>
@@ -278,17 +259,14 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Flip Card pour Piki le Flamant rose -->
+->
             <div class="col-md-6">
                 <div class="flip-card">
                     <div class="flip-card-inner">
-                        <!-- Recto -->
                         <div class="flip-card-front">
                             <img src="/image/flamant rose.jpg" alt="Piki le Flamant rose" class="animal-image">
                             <h4>Piki le Flamant rose</h4>
                         </div>
-                        <!-- Verso -->
                         <div class="flip-card-back">
                             <h4>Piki le Flamant rose</h4>
                             <p>Taille: 0.4 mètre</p>
@@ -319,7 +297,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript pour gérer les likes -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const likeButtons = document.querySelectorAll('.like-button');
