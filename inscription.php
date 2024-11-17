@@ -127,7 +127,7 @@ $conn->close();
             <button type="submit" class="btn btn-primary btn-block" name="inscrire">S'inscrire</button>
         </form>
         <div class="lien">
-            <a href="accueil.html">Retour à l'accueil</a>
+            <a href="index.html">Retour à l'accueil</a>
         </div>
     </div>
 </body>

@@ -167,7 +167,7 @@ $result_pending = $conn->query($sql_pending);
                     <a class="nav-link" href="connexion.php">Déconnexion</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="accueil.html">Retour au Site</a>
+                    <a class="nav-link" href="index.html">Retour au Site</a>
                 </li>
             </ul>
         </div>
