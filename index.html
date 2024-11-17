@@ -6,13 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arcadia Zoo - Accueil</title>
 
-    <!-- Lien vers Bootstrap et Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Lien vers CSS personnalisé -->
     <style>
-        /* Variables de couleur pour une harmonie visuelle */
         :root {
             --primary-color: #2a9d8f;
             --secondary-color: #264653;
@@ -21,7 +18,6 @@
             --dark-color: #1d3557;
         }
 
-        /* Style global */
         body {
             background-color: var(--primary-color);
             color: var(--text-color);
@@ -34,7 +30,6 @@
             border-radius: 50%;
         }
 
-        /* Style du header */
         .hero-section {
             background-color: var(--light-color);
             color: var(--primary-color);
@@ -46,7 +41,6 @@
             font-weight: bold;
         }
 
-        /* Style des cartes d'animaux */
         .card {
             background-color: var(--light-color);
             border: none;
@@ -72,7 +66,6 @@
             color: var(--primary-color);
         }
 
-        /* Bouton "Like" avec un cœur */
         .like-btn {
             color: var(--accent-color);
             transition: color 0.3s, background-color 0.3s;
@@ -83,7 +76,6 @@
             color: #fff;
         }
 
-        /* Section des avis */
         .avis-section {
             background-color: #f9f9f9;
             padding: 2rem;
@@ -122,7 +114,6 @@
             color: var(--secondary-color);
         }
 
-        /* Styles pour les étoiles de notation */
         .note {
             display: flex;
             align-items: center;
@@ -132,21 +123,18 @@
         .note .fas {
             font-size: 1.2rem;
             color: #ffd700;
-            /* Couleur dorée pour les étoiles */
+
             margin-right: 3px;
         }
 
         .note .fa-star {
             color: #ccc;
-            /* Couleur grise pour les étoiles non remplies */
         }
 
         .note .filled {
             color: #ffd700;
-            /* Couleur dorée pour les étoiles remplies */
         }
 
-        /* Section de Contact et Plan du site */
         .horaire-contact-section {
             background-color: var(--secondary-color);
             color: #fff;
@@ -182,7 +170,6 @@
             text-decoration: underline;
         }
 
-        /* Modale pour le plan du site */
         .modale {
             display: none;
             position: fixed;
@@ -225,7 +212,6 @@
             color: var(--accent-color);
         }
 
-        /* Modale pour laisser un avis */
         .modale-avis {
             display: none;
             position: fixed;
@@ -285,7 +271,6 @@
             background-color: var(--accent-color);
         }
 
-        /* Réponses et interactions sur les boutons */
         .horaire-contact-section button,
         .like-btn {
             background-color: var(--light-color);
@@ -305,7 +290,6 @@
             color: #fff;
         }
 
-        /* Footer */
 footer {
     background-color: var(--secondary-color);
     color: #fff;
@@ -333,7 +317,6 @@ footer .social-icons .logo:hover {
 
 <body>
 
-    <!-- Navbar -->
     <header class="bg-dark text-white text-center py-4">
         <nav class="navbar navbar-expand-lg navbar-dark custom-navbar" style="background-color: var(--primary-color);">
             <img src="/image/LOGO RINO 3.png" class="logo mb-3" alt="Logo Rino" title="Logo Rino">
@@ -355,13 +338,11 @@ footer .social-icons .logo:hover {
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <header id="accueil" class="hero-section text-center">
         <h1>Bienvenue à Arcadia Zoo</h1>
         <p>Explorez la faune et découvrez nos animaux.</p>
     </header>
 
-    <!-- Section Présentation -->
     <div class="container text-center my-5">
         <h4>Chers visiteurs,</h4>
         <p>Nous sommes ravis de vous accueillir au Zoo Arcadia,
@@ -404,8 +385,6 @@ footer .social-icons .logo:hover {
         </p>
     </div>
 
-
-    <!-- Section Animaux -->
     <section id="animals" class="py-5">
         <div class="container">
             <h2 class="text-center">Nos Animaux</h2>
@@ -480,7 +459,6 @@ footer .social-icons .logo:hover {
         </div>
     </section>
 
-    <!-- Section Avis -->
     <section id="avis" class="avis-section">
         <h3>Avis des Visiteurs</h3>
         <div class="avis">
@@ -494,7 +472,6 @@ footer .social-icons .logo:hover {
             </div>
             <p>Un zoo exceptionnel avec des animaux magnifiques et un personnel très accueillant.</p>
         </div>
-        <!-- Avis 2 -->
         <div class="avis">
             <h4>Lucas Martin</h4>
             <div class="note">
@@ -507,8 +484,6 @@ footer .social-icons .logo:hover {
             <p>Expérience incroyable ! Les habitats sont bien aménagés et les guides sont très instructifs. Je
                 recommande vivement !</p>
         </div>
-
-        <!-- Avis 3 -->
         <div class="avis">
             <h4>Sophie Lemoine</h4>
             <div class="note">
@@ -523,7 +498,6 @@ footer .social-icons .logo:hover {
         </div>
     </section>
 
-    <!-- Section Horaire et Contact -->
     <section id="contact" class="horaire-contact-section">
         <h3>Horaires d'Ouverture et Contact</h3>
         <p class="p1">En semaine du lundi au vendredi<br>de 09h30 à 18h00</p>
@@ -533,7 +507,6 @@ footer .social-icons .logo:hover {
         <button onclick="openModaleAvis()">Laisser un Avis</button>
     </section>
 
-    <!-- Modale Plan du site -->
     <div class="modale" id="modalePlan">
         <div class="modale_content">
             <a href="#" class="modale_close" onclick="closeModalePlan()">×</a>
@@ -541,7 +514,6 @@ footer .social-icons .logo:hover {
         </div>
     </div>
 
-    <!-- Modale pour laisser un avis -->
     <div class="modale-avis" id="modaleAvis">
         <div class="modale_content-avis">
             <h3>Laissez votre avis</h3>
@@ -555,7 +527,6 @@ footer .social-icons .logo:hover {
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3">
         <p>&copy; 2024 Arcadia Zoo Forêt de Brocéliande</p>
         <div class="social-icons">
@@ -566,7 +537,6 @@ footer .social-icons .logo:hover {
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

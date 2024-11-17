@@ -6,13 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arcadia Zoo - Jungle</title>
 
-    <!-- Lien vers Bootstrap et Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="cs/jungle.css">
 
     <style>
-        /* Définition des couleurs de thème */
         :root {
             --primary-color: #2a9d8f;
             --secondary-color: #264653;
@@ -21,7 +19,6 @@
             --dark-color: #1d3557;
         }
 
-        /* Styles généraux */
         body {
             font-family: Arial, sans-serif;
             background-color: var(--light-color);
@@ -29,7 +26,6 @@
             padding: 20px;
         }
 
-        /* Styles du header */
         header {
             text-align: center;
             margin-bottom: 30px;
@@ -41,7 +37,6 @@
             margin-right: 400px;
         }
 
-        /* Bouton de like */
         .like-container {
             display: inline-block;
             margin: 20px;
@@ -67,14 +62,12 @@
             transform: scale(1.2);
         }
 
-        /* Animation de pouls pour le like */
         .liked-animation {
             color: var(--accent-color) !important;
             transform: scale(1.5);
             transition: transform 0.2s ease, color 0.3s ease;
         }
 
-        /* Styles des cartes flip */
         .flip-card {
             background-color: transparent;
             width: 100%;
@@ -130,7 +123,6 @@
             object-fit: cover;
         }
 
-        /* Footer */
         footer {
             background-color: var(--secondary-color);
             color: #fff;
@@ -177,7 +169,6 @@
 </header>
 
 <body>
-    <!-- Header avec logo -->
     <header>
         <img src="https://img.freepik.com/photos-gratuite/dense-canopee-jungle-flore-vibrante-variee-cachant-creatures-mysterieuses-dans-ses-ombres_1268-34989.jpg?t=st=1731278526~exp=1731282126~hmac=6129987d7414a0833b6ff6633c8909586cf820d5da4bd528e5b91f67e5a4128c&w=1060"
             alt="jungle">
@@ -199,16 +190,13 @@
 
     <div class="container">
         <div class="row">
-            <!-- Flip Card pour Koko le Gorille -->
             <div class="col-md-6">
                 <div class="flip-card">
                     <div class="flip-card-inner">
-                        <!-- Recto -->
                         <div class="flip-card-front">
                             <img src="/image/gorille.jpg" alt="Koko le Gorille" class="animal-image">
                             <h4>Koko le Gorille</h4>
                         </div>
-                        <!-- Verso -->
                         <div class="flip-card-back">
                             <h4>Koko le Gorille</h4>
                             <p>Taille: 1.63 mètre</p>
@@ -225,8 +213,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Flip Card pour Sher Khan le Tigre -->
             <div class="col-md-6">
                 <div class="flip-card">
                     <div class="flip-card-inner">
@@ -250,8 +236,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Flip Card pour Pandi le Panda -->
             <div class="col-md-6">
                 <div class="flip-card">
                     <div class="flip-card-inner">
@@ -275,8 +259,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Flip Card pour Alfred l'Alligator -->
             <div class="col-md-6">
                 <div class="flip-card">
                     <div class="flip-card-inner">
@@ -314,7 +296,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript pour gérer les likes -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const likeButtons = document.querySelectorAll('.like-button');
