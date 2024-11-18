@@ -61,6 +61,13 @@ $conn->close();
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
+        .chart-container {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 
@@ -75,10 +82,16 @@ $conn->close();
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="accueil.html">Accueil</a>
+                        <a class="nav-link" href="animaux.php">Animaux</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="services.php">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="employes.php">Employés</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Retour accueil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
@@ -90,11 +103,13 @@ $conn->close();
 
     <!-- Contenu principal -->
     <div class="container">
-        <h1 class="text-center">Dashboard</h1>
+        <h1 class="text-center mt-4">Dashboard</h1>
         <div class="row">
             <!-- Graphique des animaux les plus likés -->
             <div class="col-md-6">
-                <canvas id="likeChart"></canvas>
+                <div class="chart-container">
+                    <canvas id="likeChart"></canvas>
+                </div>
             </div>
 
             <!-- Calendrier -->
@@ -134,7 +149,6 @@ $conn->close();
                     right: "dayGridMonth,timeGridWeek,timeGridDay"
                 },
                 events: [
-                    // Exemple d'événements
                     { title: "Visite Vétérinaire", start: "2024-11-15" },
                     { title: "Inspection Zoo", start: "2024-11-18" },
                     { title: "Entretien Habitat", start: "2024-11-20" }
