@@ -193,11 +193,11 @@
             <div class="col-md-6">
                 <div class="flip-card">
                     <div class="flip-card-inner">
-                        <div class="flip-card-front">
+                        <div class="flip-card-front" data-id="1">
                             <img src="/image/gorille.jpg" alt="Koko le Gorille" class="animal-image">
                             <h4>Koko le Gorille</h4>
                         </div>
-                        <div class="flip-card-back">
+                        <div class="flip-card-back" data-id="1">
                             <h4>Koko le Gorille</h4>
                             <p>Taille: 1.63 mètre</p>
                             <p>Poids: 190 kg</p>
@@ -216,11 +216,11 @@
             <div class="col-md-6">
                 <div class="flip-card">
                     <div class="flip-card-inner">
-                        <div class="flip-card-front">
+                        <div class="flip-card-front" data-id="2">
                             <img src="/image/tigre2.avif" alt="Sher Khan le Tigre" class="animal-image">
                             <h4>Sher Khan le Tigre</h4>
                         </div>
-                        <div class="flip-card-back">
+                        <div class="flip-card-back" data-id="2">
                             <h4>Sher Khan le Tigre</h4>
                             <p>Taille: 2.28 mètres</p>
                             <p>Poids: 258 kg</p>
@@ -239,11 +239,11 @@
             <div class="col-md-6">
                 <div class="flip-card">
                     <div class="flip-card-inner">
-                        <div class="flip-card-front">
+                        <div class="flip-card-front" data-id="3">
                             <img src="/image/panda.jpg" alt="Pandi Le Panda" class="animal-image">
                             <h4>Pandi Le Panda</h4>
                         </div>
-                        <div class="flip-card-back">
+                        <div class="flip-card-back" data-id="3">
                             <h4>Pandi Le Panda</h4>
                             <p>Taille: 1.59 mètre</p>
                             <p>Poids: 103 kg</p>
@@ -262,11 +262,11 @@
             <div class="col-md-6">
                 <div class="flip-card">
                     <div class="flip-card-inner">
-                        <div class="flip-card-front">
+                        <div class="flip-card-front" data-id="4">
                             <img src="/image/aligator2.webp" alt="Alfred L'Alligator" class="animal-image">
                             <h4>Alfred L'Alligator</h4>
                         </div>
-                        <div class="flip-card-back">
+                        <div class="flip-card-back" data-id="4">
                             <h4>Alfred L'Alligator</h4>
                             <p>Taille: 3.76 mètres</p>
                             <p>Poids: 180 kg</p>
@@ -298,36 +298,37 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const likeButtons = document.querySelectorAll('.like-button');
+    const likeButtons = document.querySelectorAll('.like-button');
 
-            likeButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const animalId = button.getAttribute('data-id');
-                    updateLikeCount(animalId, button);
-                });
-            });
+    likeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const animalId = button.getAttribute('data-id'); // Utilise l'id animal
+            updateLikeCount(animalId, button);
         });
+    });
+});
 
-        function updateLikeCount(animalId, button) {
-            fetch('update_likes.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `animal_id=${animalId}`
-            })
-                .then(response => response.json())
-                .then(data => {
-                    const likeCountElement = document.querySelector(`.like-count[data-id="${animalId}"]`);
-                    likeCountElement.textContent = data.likes_count;
+function updateLikeCount(animalId, button) {
+    fetch('update_likes.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `animal_id=${animalId}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        const likeCountElement = document.querySelector(`.like-count[data-id="${animalId}"]`);
+        likeCountElement.textContent = data.likes_count;
 
-                    const likeIcon = button.querySelector('.like-icon');
-                    likeIcon.classList.add('liked-animation');
+        const likeIcon = button.querySelector('.like-icon');
+        likeIcon.classList.add('liked-animation');
 
-                    setTimeout(() => likeIcon.classList.remove('liked-animation'), 200);
-                })
-                .catch(error => console.error('Erreur de mise à jour des likes:', error));
-        }
+        setTimeout(() => likeIcon.classList.remove('liked-animation'), 200);
+    })
+    .catch(error => console.error('Erreur de mise à jour des likes:', error));
+}
+
     </script>
 </body>
 

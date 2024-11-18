@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 // Utiliser la base de données existante
-$conn->select_db($dbname); 
+$conn->select_db($dbname);
 
 // Créer la table animaux si elle n'existe pas déjà
 $sql = "CREATE TABLE IF NOT EXISTS animaux (
@@ -21,7 +21,6 @@ $sql = "CREATE TABLE IF NOT EXISTS animaux (
     espece VARCHAR(30) NOT NULL,
     likes INT(6) NOT NULL DEFAULT 0
 )";
-
 $conn->query($sql);
 
 // Ajouter un nouvel animal
@@ -29,7 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom'])) {
     $nom = $conn->real_escape_string($_POST['nom']);
     $habitat = $conn->real_escape_string($_POST['habitat']);
     $espece = $conn->real_escape_string($_POST['espece']);
-
     $sql = "INSERT INTO animaux (nom, habitat, espece) VALUES ('$nom', '$habitat', '$espece')";
     $conn->query($sql);
 }
@@ -48,6 +46,17 @@ if ($selected_habitat) {
     $sql .= " WHERE habitat='$selected_habitat'";
 }
 $result = $conn->query($sql);
+
+// Pagination
+$limit = 5; // Limite par page
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
+$sql .= " LIMIT $limit OFFSET $offset";
+$paginated_result = $conn->query($sql);
+
+// Calcul du nombre total de pages
+$total_result = $conn->query("SELECT COUNT(*) AS count FROM animaux")->fetch_assoc();
+$total_pages = ceil($total_result['count'] / $limit);
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +81,22 @@ $result = $conn->query($sql);
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .pagination {
+            justify-content: center;
+        }
     </style>
+    <script>
+        function confirmDelete(form) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cet animal ?')) {
+                form.submit();
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -156,13 +180,13 @@ $result = $conn->query($sql);
                     <th>Habitat</th>
                     <th>Espèce</th>
                     <th>Likes</th>
-                    <th>Action</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
+                if ($paginated_result->num_rows > 0) {
+                    while ($row = $paginated_result->fetch_assoc()) {
                         echo "<tr>
                             <td>{$row['id']}</td>
                             <td>{$row['nom']}</td>
@@ -172,20 +196,35 @@ $result = $conn->query($sql);
                             <td>
                                 <form method='post' action='animaux.php' style='display:inline;'>
                                     <input type='hidden' name='delete_id' value='{$row['id']}'>
-                                    <button type='submit' class='btn btn-danger btn-sm'>Supprimer</button>
+                                    <button type='button' class='btn btn-danger btn-sm' onclick='confirmDelete(this.closest(\"form\"))'>Supprimer</button>
                                 </form>
                             </td>
                         </tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='6'>Aucun animal trouvé</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
+                echo "<tr><td colspan='6'>Aucun animal trouvé.</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <?php
+            for ($i = 1; $i <= $total_pages; $i++) {
+                $active = ($i == $page) ? 'active' : '';
+                echo "<li class='page-item $active'><a class='page-link' href='animaux.php?page=$i'>$i</a></li>";
+            }
+            ?>
+        </ul>
+    </nav>
+</div>
+
 </body>
 
 </html>
 
-<?php $conn->close(); ?>
+<?php
+$conn->close();
+?>
