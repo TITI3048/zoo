@@ -1,54 +1,36 @@
 <?php
+// Connexion à la base de données
 $servername = "mysql-tibzooarcadia.alwaysdata.net";
-$db_username = "376784"; // Remplacez par votre nom d'utilisateur réel
-$db_password = "Joyce3048."; // Remplacez par votre mot de passe réel
+$db_username = "376784"; // Votre nom d'utilisateur
+$db_password = "Joyce3048."; // Votre mot de passe
 $dbname = "tibzooarcadia_zoo";
 
 $conn = new mysqli($servername, $db_username, $db_password, $dbname);
 
 if ($conn->connect_error) {
-    die("Connexion échouée: " . $conn->connect_error);
+    die("Erreur de connexion : " . $conn->connect_error);
 }
 
-// Traitement des inscriptions
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['valider'])) {
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $validate_password = $_POST['validate_password'];
+// Récupération des 3 animaux les plus likés
+$sql = "SELECT animaux.nom, COUNT(likes.id) AS total_likes 
+        FROM animaux 
+        JOIN likes ON animaux.id = likes.animal_id 
+        GROUP BY animaux.nom 
+        ORDER BY total_likes DESC 
+        LIMIT 3";
+$result = $conn->query($sql);
 
-    // Vérifier si les mots de passe correspondent
-    if ($password !== $validate_password) {
-        echo "Les mots de passe ne correspondent pas.";
-        exit;
+$labels = [];
+$data = [];
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $labels[] = $row['nom'];
+        $data[] = $row['total_likes'];
     }
-
-    // Vérifier si l'utilisateur existe déjà
-    $sql = "SELECT * FROM users WHERE email = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        echo "Adresse email déjà utilisée.";
-    } else {
-        // Insérer le nouvel utilisateur avec status 'pending'
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO users (nom, prenom, email, password, status) VALUES (?, ?, ?, ?, 'pending')";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('ssss', $nom, $prenom, $email, $hashed_password);
-        if ($stmt->execute()) {
-            echo "Inscription en attente de validation.";
-        } else {
-            echo "Erreur lors de l'inscription.";
-        }
-    }
-
-    $stmt->close();
 }
 
+// Déconnexion temporaire pour protéger les données
 $conn->close();
 ?>
 
@@ -58,78 +40,71 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Tableau de bord</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
     <style>
         body {
-            background: url(/image/illustration-nature-motifs-feuilles-conception-plantes-abstraites-ia-generative_188544-12678.jpg);
-            background-size: cover;
-            background-position: center;
+            background: #f8f9fa;
         }
         .container {
-            max-width: 600px;
             margin-top: 50px;
-            padding: 20px;
-            background-color: #ffffff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #004085;
-        }
-        .lien {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .lien a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .lien a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1 class="text-center">Inscription</h1>
-        <form method="post" action="inscription.php">
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="nom">Nom :</label>
-                    <input type="text" class="form-control" id="nom" name="nom" required>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="prenom">Prénom :</label>
-                    <input type="text" class="form-control" id="prenom" name="prenom" required>
-                </div>
+        <h1 class="text-center mb-4">Tableau de bord</h1>
+
+        <div class="row">
+            <!-- Camembert des animaux les plus likés -->
+            <div class="col-md-6">
+                <h3 class="text-center">Top 3 des animaux les plus likés</h3>
+                <canvas id="chart"></canvas>
             </div>
-            <div class="form-group">
-                <label for="email">Email :</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+
+            <!-- Calendrier des rendez-vous -->
+            <div class="col-md-6">
+                <h3 class="text-center">Calendrier des rendez-vous</h3>
+                <div id="calendar"></div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="password">Mot de passe :</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="validate_password">Confirmer le mot de passe :</label>
-                    <input type="password" class="form-control" id="validate_password" name="validate_password" required>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block" name="inscrire">S'inscrire</button>
-        </form>
-        <div class="lien">
-            <a href="accueil.html">Retour à l'accueil</a>
         </div>
     </div>
+
+    <script>
+        // Données pour le camembert
+        const ctx = document.getElementById('chart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: <?php echo json_encode($labels); ?>, // Noms des animaux
+                datasets: [{
+                    label: 'Nombre de likes',
+                    data: <?php echo json_encode($data); ?>, // Nombre de likes
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                    hoverOffset: 4
+                }]
+            }
+        });
+
+        // Calendrier interactif
+        document.addEventListener('DOMContentLoaded', function () {
+            const calendarEl = document.getElementById('calendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: 'api/events.php', // Endpoint pour récupérer les événements
+                editable: true,
+                selectable: true,
+                dateClick: function (info) {
+                    alert('Date sélectionnée : ' + info.dateStr);
+                }
+            });
+            calendar.render();
+        });
+    </script>
 </body>
 
 </html>
