@@ -29,9 +29,10 @@ while ($row = $result->fetch_assoc()) {
 }
 
 $conn->close();
+
+// Pour déboguer et vérifier les données
+// var_dump($animal_data); // Décommentez cette ligne pour afficher les données PHP
 ?>
-
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -82,6 +83,9 @@ $conn->close();
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
+                <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="animaux.php">Animaux</a>
                     </li>
@@ -93,9 +97,6 @@ $conn->close();
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index.html">Retour accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
                     </li>
                 </ul>
             </div>
@@ -123,6 +124,10 @@ $conn->close();
     <!-- Script pour le graphique -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            // Vérification des données dans la console (pour déboguer)
+            console.log("Labels: ", <?php echo json_encode(array_column($animal_data, 'nom_animal')); ?>);
+            console.log("Data: ", <?php echo json_encode(array_column($animal_data, 'total_likes')); ?>);
+
             // Données pour le graphique
             const ctx = document.getElementById("likeChart").getContext("2d");
             const likeChart = new Chart(ctx, {

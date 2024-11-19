@@ -4,7 +4,8 @@ $db_username = "root";
 $db_password = "";
 $dbname = "zoo_arcadia";
 
-$conn = new mysqli($servername, $db_username, $db_password, $database);
+// Créer la connexion à la base de données
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -25,16 +26,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['service-title'])) {
             $stmt = $conn->prepare("INSERT INTO services (title, description, image) VALUES (?, ?, ?)");
             $stmt->bind_param("sss", $title, $description, $image);
             if ($stmt->execute()) {
-                echo "New service added successfully";
+                echo "Service ajouté avec succès.";
             } else {
-                echo "Error: " . $stmt->error;
+                echo "Erreur: " . $stmt->error;
             }
             $stmt->close();
         } else {
-            echo "Sorry, there was an error uploading your file.";
+            echo "Désolé, une erreur est survenue lors du téléchargement de l'image.";
         }
     } else {
-        echo "File is not an image.";
+        echo "Le fichier n'est pas une image.";
     }
 }
 
@@ -43,12 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete-service'])) {
     $stmt = $conn->prepare("DELETE FROM services WHERE id=?");
     $stmt->bind_param("i", $service_id);
     if ($stmt->execute()) {
-        echo "Service deleted successfully";
+        echo "Service supprimé avec succès.";
     } else {
-        echo "Error: " . $stmt->error;
+        echo "Erreur: " . $stmt->error;
     }
     $stmt->close();
 }
+
+// Récupérer les services actuels depuis la base de données
+$sql = "SELECT id, title, description, image FROM services";
+$result = $conn->query($sql);
 
 $conn->close();
 ?>
@@ -61,38 +66,44 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Services - Tableau de Bord</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="css/dashboard.css">
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Mon Dashboard</a>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Arcadia Zoo</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="dashboard.php">Accueil Dashboard</a>
+                    <a class="nav-link" href="dashboard.php">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="animaux.php">Animaux</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="connexion.php">Déconnexion</a>
+                    <a class="nav-link" href="employes.php">Employés</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="index.html">Retour au Site</a>
+                    <a class="nav-link" href="index.html">Retour Accueil</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <header class="bg-primary text-white text-center py-3">
+
+    <!-- Header -->
+    <header class="bg-primary text-white text-center py-4">
         <h1>Gestion des Services</h1>
+        <p>Gérez les services disponibles dans le zoo Arcadia.</p>
     </header>
 
+    <!-- Main Content -->
     <main class="container mt-4">
         <div class="row">
+            <!-- Ajouter un Service -->
             <div class="col-md-6">
                 <section class="add-service mb-4">
                     <h2>Ajouter un Service</h2>
@@ -114,6 +125,7 @@ $conn->close();
                 </section>
             </div>
 
+            <!-- Supprimer un Service -->
             <div class="col-md-6">
                 <section class="delete-service mb-4">
                     <h2>Supprimer un Service</h2>
@@ -128,16 +140,42 @@ $conn->close();
             </div>
         </div>
 
+        <!-- Services Actuels -->
         <section class="current-services">
             <h2>Services Actuels</h2>
             <div class="row">
-                
+                <?php
+                // Vérifier s'il y a des services et les afficher
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="col-md-4 mb-4">';
+                        echo '<div class="card">';
+                        echo '<img src="uploads/' . $row['image'] . '" class="card-img-top" alt="Image Service">';
+                        echo '<div class="card-body">';
+                        echo '<h5 class="card-title">' . $row['title'] . '</h5>';
+                        echo '<p class="card-text">' . $row['description'] . '</p>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p>Aucun service ajouté pour le moment.</p>';
+                }
+                ?>
             </div>
         </section>
     </main>
+
+    <!-- Footer (optionnel) -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 Arcadia Zoo. Tous droits réservés.</p>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
+
+

@@ -1,23 +1,21 @@
 <?php
+// Connexion à la base de données
 $servername = "localhost";
 $db_username = "root";
 $db_password = "";
 $dbname = "zoo_arcadia";
 
-// Connexion à la base de données
 $conn = new mysqli($servername, $db_username, $db_password, $dbname);
 
 if ($conn->connect_error) {
-    die(json_encode(['success' => false, 'message' => 'Connexion échouée : ' . $conn->connect_error]));
+    die(json_encode(['success' => false, 'message' => 'Erreur de connexion : ' . $conn->connect_error]));
 }
 
-// Récupérer les données JSON envoyées par le client
-$data = json_decode(file_get_contents("php://input"), true);
+// Vérifier que l'ID de l'animal est bien fourni
+if (isset($_POST['cardId'])) {
+    $cardId = $_POST['cardId'];
 
-if (isset($data['cardId'])) {
-    $cardId = $data['cardId'];
-
-    // Utilisation d'une requête préparée pour éviter les injections SQL
+    // Requête SQL pour incrémenter le nombre de likes
     $stmt = $conn->prepare("UPDATE animaux SET likes = likes + 1 WHERE id = ?");
     $stmt->bind_param("i", $cardId);
 
@@ -34,4 +32,5 @@ if (isset($data['cardId'])) {
 
 $conn->close();
 ?>
+
 

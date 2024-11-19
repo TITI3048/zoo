@@ -1,120 +1,69 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['username'])) {
-    header("Location: connexion.php");
-    exit();
-}
-
+// Connexion à la base de données
 $servername = "localhost";
 $db_username = "root";
 $db_password = "";
 $dbname = "zoo_arcadia";
 
-$conn = new mysqli($servername, $db_username, $db_password, $database);
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
 
 if ($conn->connect_error) {
-    die("Échec de la connexion : " . $conn->connect_error);
+    die("Erreur de connexion : " . $conn->connect_error);
 }
 
-function executeQuery($conn, $sql, $params)
-{
-    $stmt = $conn->prepare($sql);
-    if ($stmt === false) {
-        die("Erreur de préparation de la requête : " . $conn->error);
-    }
+// Requête pour obtenir les employés
+$sql = "SELECT id, nom, prenom, email, poste FROM employes";
+$result = $conn->query($sql);
 
-    $types = array_shift($params);
-    $stmt->bind_param($types, ...$params);
-
-    if ($stmt->execute() === false) {
-        die("Erreur d'exécution de la requête : " . $stmt->error);
-    }
-
-    return $stmt->get_result();
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['valider'])) {
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $validate_password = $_POST['validate_password'];
-
-    if ($password !== $validate_password) {
-        echo "Les mots de passe ne correspondent pas.";
-        exit;
-    }
-
-    $sql = "SELECT * FROM users WHERE email = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        echo "Adresse email déjà utilisée.";
-    } else {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO users (nom, prenom, email, password, status) VALUES (?, ?, ?, ?, 'pending')";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('ssss', $nom, $prenom, $email, $hashed_password);
-        if ($stmt->execute()) {
-            echo "Inscription en attente de validation.";
-        } else {
-            echo "Erreur lors de l'inscription.";
-        }
-    }
-
-    $stmt->close();
-}
-
-if (isset($_POST['approve_user'])) {
-    $user_id = $_POST['user_id'];
-    $sql = "UPDATE users SET status = 'approved' WHERE id = ?";
-    executeQuery($conn, $sql, ['i', $user_id]);
-
-    $sql = "INSERT INTO employes (nom, prenom, email, poste) SELECT nom, prenom, email, 'Employé' FROM users WHERE id = ?";
-    executeQuery($conn, $sql, ['i', $user_id]);
-
-    header("Location: employes.php");
-    exit();
-}
-
-if (isset($_POST['reject_user'])) {
-    $user_id = $_POST['user_id'];
-    $sql = "DELETE FROM users WHERE id = ?";
-    executeQuery($conn, $sql, ['i', $user_id]);
-
-    header("Location: employes.php");
-    exit();
-}
-
+// Ajouter un employé
 if (isset($_POST['add_employe'])) {
     $nom = $_POST['employe_name'];
     $prenom = $_POST['employe_firstname'];
     $email = $_POST['employe_email'];
     $poste = $_POST['employe_position'];
-    $sql = "INSERT INTO employes (nom, prenom, email, poste) VALUES (?, ?, ?, ?)";
-    executeQuery($conn, $sql, ['ssss', $nom, $prenom, $email, $poste]);
-    header("Location: employes.php");
-    exit();
+
+    // Vérification si l'email est valide
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error_message = "L'email fourni est invalide.";
+    } else {
+        // Vérification si l'email existe déjà
+        $check_sql = "SELECT * FROM employes WHERE email = ?";
+        $check_stmt = $conn->prepare($check_sql);
+        $check_stmt->bind_param('s', $email);
+        $check_stmt->execute();
+        $check_result = $check_stmt->get_result();
+
+        if ($check_result->num_rows > 0) {
+            $error_message = "Cet email est déjà utilisé par un autre employé.";
+        } else {
+            // Ajouter l'employé
+            $sql = "INSERT INTO employes (nom, prenom, email, poste) VALUES (?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('ssss', $nom, $prenom, $email, $poste);
+            $stmt->execute();
+            $success_message = "Employé ajouté avec succès!";
+            header("Location: employes.php");
+            exit();  // Important : quitter après la redirection
+        }
+    }
 }
 
+// Retirer un employé
 if (isset($_POST['delete_employe'])) {
     $employee_id = $_POST['employe_id'];
     $sql = "DELETE FROM employes WHERE id = ?";
-    executeQuery($conn, $sql, ['i', $employee_id]);
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $employee_id);
+    $stmt->execute();
+    $success_message = "Employé retiré avec succès!";
     header("Location: employes.php");
-    exit();
+    exit();  // Important : quitter après la redirection
 }
 
-$sql = "SELECT id, nom, prenom, email, poste FROM employes";
-$result = $conn->query($sql);
-
-$sql_pending = "SELECT id, nom, prenom, email FROM users WHERE status = 'pending'";
-$result_pending = $conn->query($sql_pending);
+$conn->close();
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -122,91 +71,126 @@ $result_pending = $conn->query($sql_pending);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employés</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Gestion des Employés</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .chart-container {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #calendar {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            margin-bottom: 40px;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
-<style>
-    body {
-        background-color: #2980b9;
-    }
-
-    .content {
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
-    .container {
-        background-color: #f8f9fa;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-</style>
-
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Mon Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="dashboard.php">Accueil Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="animaux.php">Animaux</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="services.php">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="connexion.php">Déconnexion</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Retour au Site</a>
-                </li>
-            </ul>
+    <!-- Barre de navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Arcadia Zoo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.php">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="animaux.php">Animaux</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="employes.php">Employés</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.php">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Retour accueil</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <h1 class="mb-4">Gérer les Employés</h1>
+    <!-- Contenu principal -->
+    <div class="container">
+        <h1 class="text-center mt-4">Gestion des Employés</h1>
+
+        <!-- Affichage des messages de succès ou d'erreur -->
+        <?php if (isset($success_message)) : ?>
+            <div class="alert alert-success"><?php echo $success_message; ?></div>
+        <?php elseif (isset($error_message)) : ?>
+            <div class="alert alert-danger"><?php echo $error_message; ?></div>
+        <?php endif; ?>
+
         <div class="row">
+            <!-- Ajouter un employé -->
             <div class="col-md-6">
+                <h3>Ajouter un Employé</h3>
                 <form method="post" action="employes.php">
                     <div class="form-group">
-                        <label for="employe_name">Nom de l'employé :</label>
+                        <label for="employe_name">Nom :</label>
                         <input type="text" class="form-control" id="employe_name" name="employe_name" required>
                     </div>
                     <div class="form-group">
-                        <label for="employe_firstname">Prénom de l'employé :</label>
+                        <label for="employe_firstname">Prénom :</label>
                         <input type="text" class="form-control" id="employe_firstname" name="employe_firstname" required>
                     </div>
                     <div class="form-group">
-                        <label for="employe_email">Email de l'employé :</label>
+                        <label for="employe_email">Email :</label>
                         <input type="email" class="form-control" id="employe_email" name="employe_email" required>
                     </div>
                     <div class="form-group">
                         <label for="employe_position">Poste :</label>
                         <input type="text" class="form-control" id="employe_position" name="employe_position" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" name="add_employe">Ajouter Employé</button>
+                    <button type="submit" class="btn btn-primary mt-3" name="add_employe">Ajouter</button>
                 </form>
-                <form method="post" action="employes.php" class="mt-3">
+            </div>
+
+            <!-- Retirer un employé -->
+            <div class="col-md-6">
+                <h3>Retirer un Employé</h3>
+                <form method="post" action="employes.php">
                     <div class="form-group">
-                        <label for="employe_id">ID de l'employé à retirer :</label>
+                        <label for="employe_id">ID de l'employé :</label>
                         <input type="number" class="form-control" id="employe_id" name="employe_id" required>
                     </div>
-                    <button type="submit" class="btn btn-danger" name="delete_employe">Retirer Employé</button>
+                    <button type="submit" class="btn btn-danger mt-3" name="delete_employe">Retirer</button>
                 </form>
             </div>
         </div>
 
-        <h1 class="mt-5">Liste des Employés</h1>
+        <h3 class="mt-4">Liste des Employés</h3>
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>
@@ -218,67 +202,21 @@ $result_pending = $conn->query($sql_pending);
                 </tr>
             </thead>
             <tbody>
-                <?php
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $row["id"] . "</td>";
-                        echo "<td>" . $row["nom"] . "</td>";
-                        echo "<td>" . $row["prenom"] . "</td>";
-                        echo "<td>" . $row["email"] . "</td>";
-                        echo "<td>" . $row["poste"] . "</td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='5'>Aucun employé trouvé</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-
-        <h1 class="mt-5">Inscriptions en attente</h1>
-        <table class="table table-bordered table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if ($result_pending->num_rows > 0) {
-                    while ($row = $result_pending->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $row["id"] . "</td>";
-                        echo "<td>" . $row["nom"] . "</td>";
-                        echo "<td>" . $row["prenom"] . "</td>";
-                        echo "<td>" . $row["email"] . "</td>";
-                        echo "<td>
-                                <form method='post' action='employes.php' style='display:inline;'>
-                                    <input type='hidden' name='user_id' value='" . $row["id"] . "'>
-                                    <button type='submit' class='btn btn-success' name='approve_user'>Valider</button>
-                                </form>
-                                <form method='post' action='employes.php' style='display:inline;'>
-                                    <input type='hidden' name='user_id' value='" . $row["id"] . "'>
-                                    <button type='submit' class='btn btn-danger' name='reject_user'>Refuser</button>
-                                </form>
-                                </td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='5'>Aucune inscription en attente</td></tr>";
-                }
-                ?>
+                <?php while ($row = $result->fetch_assoc()) : ?>
+                    <tr>
+                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo $row['nom']; ?></td>
+                        <td><?php echo $row['prenom']; ?></td>
+                        <td><?php echo $row['email']; ?></td>
+                        <td><?php echo $row['poste']; ?></td>
+                    </tr>
+                <?php endwhile; ?>
             </tbody>
         </table>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Scripts Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

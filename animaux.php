@@ -52,7 +52,6 @@ $total_result = $conn->query("SELECT COUNT(*) AS count FROM animaux")->fetch_ass
 $total_pages = ceil($total_result['count'] / $limit);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -84,12 +83,39 @@ $total_pages = ceil($total_result['count'] / $limit);
             justify-content: center;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function confirmDelete(form) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cet animal ? Cette action est irréversible.')) {
-        form.submit();
-    }
-}
+        $(document).ready(function() {
+            // Fonction pour augmenter les likes via AJAX
+            $(".btn-primary").on("click", function() {
+                var animalId = $(this).data("id");
+
+                $.ajax({
+                    url: "update_likes.php",
+                    type: "POST",
+                    data: { cardId: animalId },
+                    success: function(response) {
+                        if(response.success) {
+                            // Mettre à jour l'affichage des likes sur la page
+                            var currentLikes = $("#like-count-" + animalId).text();
+                            $("#like-count-" + animalId).text(parseInt(currentLikes) + 1);
+                        } else {
+                            alert("Une erreur est survenue lors de l'ajout du like.");
+                        }
+                    },
+                    error: function() {
+                        alert("Erreur de connexion.");
+                    }
+                });
+            });
+
+            // Confirmer la suppression
+            function confirmDelete(form) {
+                if (confirm('Êtes-vous sûr de vouloir supprimer cet animal ? Cette action est irréversible.')) {
+                    form.submit();
+                }
+            }
+        });
     </script>
 </head>
 
@@ -186,39 +212,40 @@ $total_pages = ceil($total_result['count'] / $limit);
                             <td>{$row['nom']}</td>
                             <td>{$row['habitat']}</td>
                             <td>{$row['espece']}</td>
-                            <td>{$row['likes']}</td>
+                            <td><span id='like-count-{$row['id']}'>{$row['likes']}</span></td>
                             <td>
                                 <form method='post' action='animaux.php' style='display:inline;'>
                                     <input type='hidden' name='delete_id' value='{$row['id']}'>
                                     <button type='button' class='btn btn-danger btn-sm' onclick='confirmDelete(this.closest(\"form\"))'>Supprimer</button>
                                 </form>
+                                <button type='button' class='btn btn-primary btn-sm' id='like-btn-{$row['id']}' data-id='{$row['id']}'>J'aime</button>
                             </td>
                         </tr>";
                     }
                 } else {
-                echo "<tr><td colspan='6'>Aucun animal trouvé.</td></tr>";
-            }
-            ?>
-        </tbody>
-    </table>
+                    echo "<tr><td colspan='6'>Aucun animal trouvé.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
 
-    <!-- Pagination -->
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            <?php
-            for ($i = 1; $i <= $total_pages; $i++) {
-                $active = ($i == $page) ? 'active' : '';
-                echo "<li class='page-item $active'><a class='page-link' href='animaux.php?page=$i'>$i</a></li>";
-            }
-            ?>
-        </ul>
-    </nav>
-</div>
-
+        <!-- Pagination -->
+        <nav>
+            <ul class="pagination">
+                <?php if ($page > 1): ?>
+                    <li class="page-item"><a class="page-link" href="animaux.php?page=<?= $page - 1 ?>">Précédent</a></li>
+                <?php endif; ?>
+                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                    <li class="page-item <?= $i === $page ? 'active' : '' ?>"><a class="page-link" href="animaux.php?page=<?= $i ?>"><?= $i ?></a></li>
+                <?php endfor; ?>
+                <?php if ($page < $total_pages): ?>
+                    <li class="page-item"><a class="page-link" href="animaux.php?page=<?= $page + 1 ?>">Suivant</a></li>
+                <?php endif; ?>
+            </ul>
+        </nav>
+    </div>
 </body>
 
 </html>
 
-<?php
-$conn->close();
-?>
+<?php $conn->close(); ?>
