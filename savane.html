@@ -300,36 +300,37 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const likeButtons = document.querySelectorAll('.like-button');
+    const likeButtons = document.querySelectorAll('.like-button');
 
-            likeButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const animalId = button.getAttribute('data-id');
-                    updateLikeCount(animalId, button);
-                });
-            });
+    likeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const animalId = button.getAttribute('data-id'); // Utilise l'id animal
+            updateLikeCount(animalId, button);
         });
+    });
+});
 
-        function updateLikeCount(animalId, button) {
-            fetch('update_likes.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `animal_id=${animalId}`
-            })
-                .then(response => response.json())
-                .then(data => {
-                    const likeCountElement = document.querySelector(`.like-count[data-id="${animalId}"]`);
-                    likeCountElement.textContent = data.likes_count;
+function updateLikeCount(animalId, button) {
+    fetch('update_likes.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `animal_id=${animalId}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        const likeCountElement = document.querySelector(`.like-count[data-id="${animalId}"]`);
+        likeCountElement.textContent = data.likes_count;
 
-                    const likeIcon = button.querySelector('.like-icon');
-                    likeIcon.classList.add('liked-animation');
+        const likeIcon = button.querySelector('.like-icon');
+        likeIcon.classList.add('liked-animation');
 
-                    setTimeout(() => likeIcon.classList.remove('liked-animation'), 200);
-                })
-                .catch(error => console.error('Erreur de mise à jour des likes:', error));
-        }
+        setTimeout(() => likeIcon.classList.remove('liked-animation'), 200);
+    })
+    .catch(error => console.error('Erreur de mise à jour des likes:', error));
+}
+
     </script>
 </body>
 

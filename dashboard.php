@@ -1,9 +1,9 @@
 <?php
 // Connexion à la base de données
-$servername = "mysql-tibzooarcadia.alwaysdata.net";
-$db_username = "376784";
-$db_password = "Joyce3048.";
-$dbname = "tibzooarcadia_zoo";
+$servername = "localhost";
+$db_username = "root";
+$db_password = "";
+$dbname = "zoo_arcadia";
 
 $conn = new mysqli($servername, $db_username, $db_password, $dbname);
 
@@ -30,6 +30,7 @@ while ($row = $result->fetch_assoc()) {
 
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">

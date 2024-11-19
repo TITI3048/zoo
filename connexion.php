@@ -1,12 +1,13 @@
 <?php
 session_start();
 
-$servername = "mysql-tibzooarcadia.alwaysdata.net";
-$username = "376784";
-$password = "Joyce3048.";
-$dbname = "tibzooarcadia_zoo";
+$servername = "localhost";
+$db_username = "root";
+$db_password = "";
+$dbname = "zoo_arcadia";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Correction de la connexion
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
 
 if ($conn->connect_error) {
     die("La connexion a échoué: " . $conn->connect_error);
@@ -16,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    // Requête préparée pour éviter les injections SQL
     $stmt = $conn->prepare("SELECT * FROM admin WHERE username = ? AND password = ?");
     $stmt->bind_param("ss", $username, $password);
     $stmt->execute();
@@ -30,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">

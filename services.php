@@ -1,10 +1,10 @@
 <?php
-$servername = "mysql-tibzooarcadia.alwaysdata.net";
-$username = "376784";
-$password = "Joyce3048.";
-$dbname = "tibzooarcadia_zoo";
+$servername = "localhost";
+$db_username = "root";
+$db_password = "";
+$dbname = "zoo_arcadia";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $db_username, $db_password, $database);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

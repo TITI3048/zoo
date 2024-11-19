@@ -1,43 +1,42 @@
 <?php
-$servername = "mysql-tibzooarcadia.alwaysdata.net";
-$username = "376784";
-$password = "Joyce3048.";
-$dbname = "tibzooarcadia_zoo"; 
+$servername = "localhost";
+$db_username = "root";
+$db_password = "";
+$dbname = "zoo_arcadia";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
 
 if ($conn->connect_error) {
     die("Connexion échouée: " . $conn->connect_error);
 }
 
-// Utiliser la base de données existante
-$conn->select_db($dbname);
-
 // Créer la table animaux si elle n'existe pas déjà
-$sql = "CREATE TABLE IF NOT EXISTS animaux (
+$conn->query("CREATE TABLE IF NOT EXISTS animaux (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(30) NOT NULL,
     habitat VARCHAR(50) NOT NULL,
     espece VARCHAR(30) NOT NULL,
     likes INT(6) NOT NULL DEFAULT 0
-)";
-$conn->query($sql);
+)");
 
-// Ajouter un nouvel animal
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nom'])) {
+// Ajouter un animal
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['nom'])) {
     $nom = $conn->real_escape_string($_POST['nom']);
     $habitat = $conn->real_escape_string($_POST['habitat']);
     $espece = $conn->real_escape_string($_POST['espece']);
-    $sql = "INSERT INTO animaux (nom, habitat, espece) VALUES ('$nom', '$habitat', '$espece')";
-    $conn->query($sql);
+    $conn->query("INSERT INTO animaux (nom, habitat, espece) VALUES ('$nom', '$habitat', '$espece')");
 }
 
 // Supprimer un animal
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_id'])) {
-    $delete_id = $conn->real_escape_string($_POST['delete_id']);
-    $sql = "DELETE FROM animaux WHERE id='$delete_id'";
-    $conn->query($sql);
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['delete_id'])) {
+    $delete_id = intval($_POST['delete_id']);
+    $conn->query("DELETE FROM animaux WHERE id=$delete_id");
 }
+
+// Pagination
+$limit = 5;
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$offset = ($page - 1) * $limit;
 
 // Filtrer les animaux par habitat
 $selected_habitat = isset($_POST['filter_habitat']) ? $conn->real_escape_string($_POST['filter_habitat']) : '';
@@ -45,19 +44,14 @@ $sql = "SELECT id, nom, habitat, espece, likes FROM animaux";
 if ($selected_habitat) {
     $sql .= " WHERE habitat='$selected_habitat'";
 }
-$result = $conn->query($sql);
-
-// Pagination
-$limit = 5; // Limite par page
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
-$offset = ($page - 1) * $limit;
 $sql .= " LIMIT $limit OFFSET $offset";
 $paginated_result = $conn->query($sql);
 
-// Calcul du nombre total de pages
+// Nombre total d'animaux
 $total_result = $conn->query("SELECT COUNT(*) AS count FROM animaux")->fetch_assoc();
 $total_pages = ceil($total_result['count'] / $limit);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -92,10 +86,10 @@ $total_pages = ceil($total_result['count'] / $limit);
     </style>
     <script>
         function confirmDelete(form) {
-            if (confirm('Êtes-vous sûr de vouloir supprimer cet animal ?')) {
-                form.submit();
-            }
-        }
+    if (confirm('Êtes-vous sûr de vouloir supprimer cet animal ? Cette action est irréversible.')) {
+        form.submit();
+    }
+}
     </script>
 </head>
 
@@ -122,7 +116,7 @@ $total_pages = ceil($total_result['count'] / $limit);
                         <a class="nav-link" href="services.php">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="connexion.php">Déconnexion</a>
+                        <a class="nav-link" href="index.html">Retour accueil</a>
                     </li>
                 </ul>
             </div>

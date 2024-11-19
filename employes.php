@@ -6,12 +6,12 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-$servername = "mysql-tibzooarcadia.alwaysdata.net";
-$db_username = "376784"; 
-$db_password = "Joyce3048."; 
-$dbname = "tibzooarcadia_zoo";
+$servername = "localhost";
+$db_username = "root";
+$db_password = "";
+$dbname = "zoo_arcadia";
 
-$conn = new mysqli($servername, $db_username, $db_password, $dbname);
+$conn = new mysqli($servername, $db_username, $db_password, $database);
 
 if ($conn->connect_error) {
     die("Échec de la connexion : " . $conn->connect_error);
