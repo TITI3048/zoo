@@ -3,10 +3,10 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-$servername = "mysql-tibzooarcadia.alwaysdata.net";
-$db_username = "376784"; // Remplacez par votre nom d'utilisateur réel
-$db_password = "Joyce3048."; // Remplacez par votre mot de passe réel
-$dbname = "tibzooarcadia_zoo";
+$servername = "localhost";
+$db_username = "root";
+$db_password = "";
+$dbname = "zoo_arcadia";
 
 // Connexion à la base de données
 $conn = new mysqli($servername, $db_username, $db_password, $dbname);
